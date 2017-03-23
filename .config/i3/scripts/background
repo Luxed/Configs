@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while true; do
+    feh --randomize --bg-scale ~/Pictures/Backgrounds/*
+    sleep 120
+done

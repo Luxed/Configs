@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/etc/wpa_supplicant'
+let g:netrw_dirhist_2='/home/corentin/.config/i3'
+let g:netrw_dirhist_3='/home/corentin/C++/08-ClassesAndPointers/build/CMakeFiles'
+let g:netrw_dirhist_4='/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/device'
+let g:netrw_dirhist_5='/home/corentin/.config'
+let g:netrw_dirhist_6='/home/corentin/08-ClassesAndPointers'

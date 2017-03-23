@@ -1,0 +1,31 @@
+move = hjkl
+
+Normal mode:
+	next word = w
+	previous word = b
+	end of word = e
+combine with a number to go faster
+
+----------------------------- (<-- 30i- Esc, this will make a line of 30 -)
+
+find a letter = f (and F) and letter
+shift+5(%) = go to matching (), [] or {}
+0 = beggining of the line
+$ = end of a line
+next occurence of word under cursor = *
+previous occurence of word under cursor = #
+beggining of file = gg
+end of file = G
+specific line = number + G (12G)
+find a word = /word
+	next = n
+	previous = N
+insert text in line after and before = o/O
+delete word on and before cursor = x/X
+replace a character = r
+delete command = d (can be combined with any movement)
+repeat last command = .
+
+Visual mode = v
+	same as normal but allows to select more
+undo = u

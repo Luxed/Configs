@@ -1,0 +1,8 @@
+#!/bin/bash
+
+maxBrightness=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+currentBrightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+brightness=$(echo "scale=2; ($currentBrightness/$maxBrightness)*100" | bc)
+
+#echo "$maxBrightness, $currentBrightness, $brightness"
+echo ${brightness%.*}%

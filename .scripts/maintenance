@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pacaur -Rscn $(pacaur -Qtdq)
+pacaur -Sc
+sudo pacman-optimize && sync
