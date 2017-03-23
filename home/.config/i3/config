@@ -227,7 +227,7 @@ exec --no-startup-id slack
 exec --no-startup-id /usr/bin/libinput-gestures
 exec --no-startup-id compton -b --config ~/.config/i3/compton/akrasic_compton.conf
 #exec_always --no-startup-id feh --bg-scale ~/Pictures/skulls.jpg
-#exec_always --no-startup-id pkill -f background
+#exec --no-startup-id pkill background
 exec --no-startup-id bash ~/.config/i3/scripts/background
 exec --no-startup-id conky
 
@@ -236,5 +236,5 @@ exec --no-startup-id i3-msg "workspace $wsTerm;exec --no-startup-id urxvt"
 
 #exec --no-startup-id xrandr --output eDP1 --primary --auto
 #exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1
-exec --no-startup-id xrandr --output HDMI1 --primary --auto
-exec --no-startup-id xrandr --output eDP1 --auto --left-of HDMI1
+#exec --no-startup-id xrandr --output HDMI1 --primary --auto
+#exec --no-startup-id xrandr --output eDP1 --auto --left-of HDMI1

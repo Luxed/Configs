@@ -1,17 +1,18 @@
 #!/bin/bash
-
-cp -rf ~/.Xresources ./
-cp -rf ~/.vimrc ./
-if [ ! -d "./Pictures/Backgrounds" ]; then
-    mkdir -p ./Pictures/Backgrounds
+if [ $1 == "laptop" ]; then
+        cd home
+        cp -rf ~/.Xresources ./
+        cp -rf ~/.vimrc ./
+        if [ ! -d "./Pictures/Backgrounds" ]; then
+            mkdir -p ./Pictures/Backgrounds
+        fi
+        cp -rf ~/Pictures/Backgrounds/* ./Pictures/Backgrounds/
+        cp -rf ~/.vim ./
+        cp -rf ~/.scripts ./
+        cp -rf ~/.fonts ./
+        if [ ! -d "./.config/i3" ]; then
+            mkdir -p ./.config/i3
+        fi
+        cp -rf ~/.config/i3 ./.config/
+        cp -rf ~/.config/conky ./.config/
 fi
-cp -rf ~/Pictures/Backgrounds/* ./Pictures/Backgrounds/
-cp -rf ~/.vim ./
-cp -rf ~/.scripts ./
-cp -rf ~/.fonts ./
-if [ ! -d "./.config/i3" ]; then
-    mkdir -p ./.config/i3
-fi
-cp -rf ~/.config/i3 ./.config/
-cp -rf ~/.config/conky ./.config/
-
