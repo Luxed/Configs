@@ -2,8 +2,8 @@
 if [ $1 == "arch" ]; then
         echo "Installation for arch linux"
         cd home
-        cp -rf ./* ~/
-        ~/.bashrc
-        pacinst i3 i3lock i3status rofi rxvt-unicode vim vim-airline compton conky feh gtk-theme-arc arc-icon-theme
+        cp -rf ./ ~
+	chmod 755 ~/.bashrc
+        pacaur -S i3 i3lock i3status i3blocks rofi rxvt-unicode vim vim-airline compton conky feh gtk-theme-arc arc-icon-theme
         xrdb ~/.Xresources
 fi
