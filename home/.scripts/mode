@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $1 == "off" ]; then
+        pkill -f conky
+        pkill -f compton
+        pkill -f background
+elif [ $1 == "on" ]; then
+        compton -b --config ~/.config/i3/compton/akrasic_compton.conf &
+        ~/.config/i3/scripts/background &
+        conky &
+fi

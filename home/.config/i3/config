@@ -124,6 +124,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # Default workspace for applications
 assign [class="Slack"] $wsSlack
+assign [class="discord"] $wsSlack
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -200,7 +201,9 @@ bar {
 
 # Custom binds
 bindsym $mod+Shift+x exec i3lock -i /home/corentin/Pictures/dark_blue.png
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 410 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Blogger Sans-Medium 18"
+bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding 410 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Blogger Sans-Medium 18"
+bindsym $mod+o exec ~/.scripts/mode off
+bindsym $mod+p exec ~/.scripts/mode on
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -223,18 +226,21 @@ bindcode $mod+59 move workspace to output left
 
 # Default applications
 exec --no-startup-id slack
+exec --no-startup-id discord
 
 exec --no-startup-id /usr/bin/libinput-gestures
 exec --no-startup-id compton -b --config ~/.config/i3/compton/akrasic_compton.conf
 #exec_always --no-startup-id feh --bg-scale ~/Pictures/skulls.jpg
-#exec --no-startup-id pkill background
+exec --no-startup-id pkill background
 exec --no-startup-id bash ~/.config/i3/scripts/background
 exec --no-startup-id conky
+exec --no-startup-id jetbrains-toolbox
+exec --no-startup-id synapse
 
 
 exec --no-startup-id i3-msg "workspace $wsTerm;exec --no-startup-id urxvt"
 
-#exec --no-startup-id xrandr --output eDP1 --primary --auto
-#exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1
+exec --no-startup-id xrandr --output eDP1 --primary --auto
+exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 #exec --no-startup-id xrandr --output HDMI1 --primary --auto
 #exec --no-startup-id xrandr --output eDP1 --auto --left-of HDMI1

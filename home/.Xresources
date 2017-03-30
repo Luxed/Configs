@@ -2,7 +2,7 @@ URxvt.font: xft:Monospace:size=11:hinting=true
 URxvt.scrollBar: false
 
 urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0200/c000
+urxvt*background: rgba:0000/0000/0200/8000
 
 *background: #232C31
 *foreground: #C5C8C6
