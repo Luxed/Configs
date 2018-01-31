@@ -5,6 +5,8 @@ set tabstop=4
 set softtabstop=4
 " Tabs are spaces
 set expandtab
+set shiftwidth=4
+set smarttab
 
 " Show line numbers
 set number
@@ -17,7 +19,7 @@ filetype plugin indent on
 set wildmenu
 set showcmd
 "redraw when needed
-"set lazyredraw
+set lazyredraw
 
 set showmatch
 
@@ -47,6 +49,16 @@ set omnifunc=syntaxcomplete#Complete
 " Nvim's terminal keybinds
 "tnoremap <Esc> <C-\><C-N>
 
+" Key bindings
+let mapleader = ","
+" buffers keybinds 
+set hidden
+nmap <leader>T :enew<CR>
+nmap <leader>l :bnext<CR>
+nmap <leader>h :bprevious<CR>
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bl :ls<CR>
+
 " Enable autowrite
 set autowrite
 
@@ -71,7 +83,7 @@ command! Pr !clear && python %
 autocmd FileType python map <F5> :Pr<CR>
 
 " Neovim configs
-let g:loaded_python3_provider=1
+"let g:loaded_python3_provider=1
 
 " Plugins initialisation
 call plug#begin()
@@ -80,6 +92,10 @@ call plug#begin()
 Plug 'rust-lang/rust.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
+Plug 'cespare/vim-toml'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/html5.vim'
+Plug 'tikhomirov/vim-glsl'
 
 " -- Syntax checker
 " Replaced by ALE
@@ -104,76 +120,84 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 "Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
-"Plug 'felixhummel/setcolors.vim'
-
-" -- Dropped
-" Too much configs for it to work well on terminal
-"Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'majutsushi/tagbar' " Official git repo
+"Plug 'ithinuel/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
 " Syntastic configuration
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 "let g:syntastic_loc_list_height = 3
 
-"let g:syntastic_rust_rustc_exe = 'cargo check --all-features'
-"let g:syntastic_rust_rustc_fname = ''
-"let g:syntastic_rust_rustc_args = '--'
-"let g:syntastic_rust_checkers = ['rustc']
-
 " Airline configuration
 let g:airline_powerline_fonts = 1
+" show buffers at the top of the screen
+let g:airline#extensions#tabline#enabled = 1
+" only show the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " YouCompleteMe config
 "let g:ycm_rust_src_path="/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 " make YCM compatible with UltiSnips (using supertab) 
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>'] 
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>'] 
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " Supertab Config
-let g:SuperTabDefaultCompletionType = '<C-j>'
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips config
-let g:UltiSnipsExpandTrigger="<tab>" 
-let g:UltiSnipsJumpForwardTrigger="<tab>" 
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger='<tab>' 
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 " NerdTree config
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let g:NERDTreeShowHidden=1
 
 " Ale Configs
 "let g:ale_rust_cargo_use_check=0
 "let g:ale_rust_cargo_check_all_targets=0
 let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {'rust': ['rls']}
+"let g:ale_linters = {'rust': ['rustc']}
+"let g:ale_sign_column_always = 1
+let g:ale_rust_rls_toolchain='beta'
 
 " Last because of plugin
 " Force colors to 256
-set t_Co=256
+"set t_Co=256
 colorscheme kolor_custom
 
 " indentLine config
-"let g:indentLine_setColors = 0
-let g:indentLine_color_term = 234
-"let g:indentLine_bgcolor_term = 235
-"let g:indentLine_concealcursor=0
+let g:indentLine_setColors = 0
+let g:indentLine_color_term = 235
+let g:indentLine_concealcursor=0
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_faster = 1
 
-" Indent Guides config
-"let g:indent_guides_auto_colors=0
-"let g:indent_guides_guide_size=1
-"let g:indent_guides_enable_on_vim_startup=1
-"let g:indent_guides_start_level=2
-" colors work well with molokai
-"hi IndentGuidesOdd ctermbg=235
-"hi IndentGuidesEven ctermbg=237
+" CtrlP config
+" Setup some default ignores
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+let g:ctrlp_working_path_mode = 'r'
+" ctrlp bindings
+nmap <leader>pp :CtrlP<CR>
+nmap <leader>pb :CtrlPBuffer<CR>
+nmap <leader>pm :CtrlPMixed<CR>
+nmap <leader>ps :CtrlPMRU<CR>
+
+" Opens tagbar to the right and moves into it
+"nmap <C-T> :TagbarToggle<CR><C-W><C-L>
+
+" Nvim specific
+"let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+"set guicursor=
