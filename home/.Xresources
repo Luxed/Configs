@@ -1,5 +1,5 @@
 !URxvt.font: xft:Monospace:size=11:hinting=true
-URxvt.font: xft:Source Code Pro for Powerline:size=11:antialias=true:hinting=true
+URxvt.font: xft:Source Code Pro:size=11:antialias=true:hinting=true
 URxvt.scrollBar: false
 
 Xft.autohint: 0
