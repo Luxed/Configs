@@ -13,7 +13,6 @@ set number
 " Highlight current line
 set cursorline
 " Load filetype-specific indent files
-"filetype indent on
 filetype plugin indent on
 " Autocomplete for command menu
 set wildmenu
@@ -37,6 +36,9 @@ set visualbell
 set mouse=a
 set cmdheight=1
 
+" Enable syntax based folding
+set foldmethod=syntax
+
 " Enable code completion
 set omnifunc=syntaxcomplete#Complete
 
@@ -51,6 +53,7 @@ set omnifunc=syntaxcomplete#Complete
 
 " Key bindings
 let mapleader = ","
+tnoremap <leader>n <C-\><C-N>
 " buffers keybinds 
 set hidden
 nmap <leader>T :enew<CR>
@@ -70,6 +73,8 @@ command! Cbadc !clear && RUSTFLAGS="$RUSTFLAGS -A dead_code" cargo build
 command! Cr !clear && cargo run
 command! Cradc !clear && RUSTFLAGS="$RUSTFLAGS -A dead_code" cargo run
 command! Ct !clear && cargo test
+
+command! Cbr :tabedit term://cargo run --release
 
 " Rust key maps
 autocmd FileType rust map <F4> :Cb<CR>
@@ -103,10 +108,12 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'w0rp/ale'
 
 " Auto Completion and Snippets
-Plug 'valloric/youcompleteme'
+" Plug 'valloric/youcompleteme'
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim'
+Plug 'sebastianmarkow/deoplete-rust'
 
 " Interface and Themes
 Plug 'bling/vim-airline'
@@ -114,13 +121,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'Yggdroot/indentLine'
+Plug 'godlygeek/tabular'
 
 " -- Utility
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 "Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
-"Plug 'majutsushi/tagbar' " Official git repo
+Plug 'majutsushi/tagbar' " Official git repo
 "Plug 'ithinuel/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -162,15 +170,20 @@ let g:NERDTreeShowHidden=1
 "let g:ale_rust_cargo_use_check=0
 "let g:ale_rust_cargo_check_all_targets=0
 let g:airline#extensions#ale#enabled=1
-let g:ale_linters = {'rust': ['rls']}
+let g:ale_linters = {
+    \ 'rust': ['rls'],
+    \ 'glsl': ['glslang']
+\}
 "let g:ale_linters = {'rust': ['rustc']}
 "let g:ale_sign_column_always = 1
 let g:ale_rust_rls_toolchain='beta'
+nmap <leader>an :ALENextWrap<CR>
+nmap <leader>ap :ALEPreviousWrap<CR>
 
 " Last because of plugin
 " Force colors to 256
-"set t_Co=256
-colorscheme kolor_custom
+set t_Co=256
+colorscheme kolor
 
 " indentLine config
 let g:indentLine_setColors = 0
@@ -196,7 +209,14 @@ nmap <leader>pm :CtrlPMixed<CR>
 nmap <leader>ps :CtrlPMRU<CR>
 
 " Opens tagbar to the right and moves into it
-"nmap <C-T> :TagbarToggle<CR><C-W><C-L>
+nmap <C-T> :TagbarToggle<CR><C-W><C-L>
+
+" Deoplete configuration
+let g:deoplete#enable_at_startup = 1
+
+" Deoplete-rust configuration
+let g:deoplete#sources#rust#racer_binary = '/home/corentin/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/corentin/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
 
 " Nvim specific
 "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
