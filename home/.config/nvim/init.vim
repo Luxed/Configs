@@ -34,7 +34,7 @@ set confirm
 set visualbell
 " Enable mouse control
 set mouse=a
-set cmdheight=1
+set cmdheight=2
 
 " Enable syntax based folding
 set foldmethod=syntax
@@ -53,8 +53,12 @@ set omnifunc=syntaxcomplete#Complete
 
 " Key bindings
 let mapleader = ","
+" exit terminal
 tnoremap <leader>n <C-\><C-N>
-" buffers keybinds 
+" remove highlight
+nmap <leader>n :nohl<CR>
+
+" buffers keybinds
 set hidden
 nmap <leader>T :enew<CR>
 nmap <leader>l :bnext<CR>
@@ -87,6 +91,8 @@ command! Pr !clear && python %
 " Python key maps
 autocmd FileType python map <F5> :Pr<CR>
 
+command! Kr !kotlinc -include-runtime -d run.jar hello.kt && java -jar run.jar
+
 " Neovim configs
 "let g:loaded_python3_provider=1
 
@@ -96,11 +102,15 @@ call plug#begin()
 " -- Languages
 Plug 'rust-lang/rust.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-markdownfootnotes'
 Plug 'elzr/vim-json'
 Plug 'cespare/vim-toml'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'tikhomirov/vim-glsl'
+Plug 'udalov/kotlin-vim'
 
 " -- Syntax checker
 " Replaced by ALE
@@ -108,7 +118,8 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'w0rp/ale'
 
 " Auto Completion and Snippets
-" Plug 'valloric/youcompleteme'
+" Plug 'valloric/youcompleteme' " deoplete is being tested as a replacement
+" (works great for Rust)
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
@@ -118,7 +129,8 @@ Plug 'sebastianmarkow/deoplete-rust'
 " Interface and Themes
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'flazz/vim-colorschemes'
 Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular'
@@ -131,6 +143,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar' " Official git repo
 "Plug 'ithinuel/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
+"Plug 'shime/vim-livedown'
+"Plug 'yashsriv/vim-instant-pandoc'
+"Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'Luxed/vim-markdown-preview'
 
 call plug#end()
 
@@ -150,15 +167,15 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 " YouCompleteMe config
 "let g:ycm_rust_src_path="/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-" make YCM compatible with UltiSnips (using supertab) 
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>'] 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " Supertab Config
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips config
-let g:UltiSnipsExpandTrigger='<tab>' 
+let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
@@ -176,7 +193,8 @@ let g:ale_linters = {
 \}
 "let g:ale_linters = {'rust': ['rustc']}
 "let g:ale_sign_column_always = 1
-let g:ale_rust_rls_toolchain='beta'
+let g:ale_rust_rls_toolchain='nightly'
+let g:ale_lint_delay=50
 nmap <leader>an :ALENextWrap<CR>
 nmap <leader>ap :ALEPreviousWrap<CR>
 
@@ -217,6 +235,19 @@ let g:deoplete#enable_at_startup = 1
 " Deoplete-rust configuration
 let g:deoplete#sources#rust#racer_binary = '/home/corentin/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path = '/home/corentin/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
+
+" Pandoc vim config
+let g:pandoc#modules#disabled = ["spell"]
+
+" Instant pandoc config
+"let g:instant_pandoc_autostart = 0
+
+" Vim markdown preview config
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_browser='firefox'
+let vim_markdown_preview_pandoc=1
+let vim_markdown_preview_use_xdg_open=1
+"let vim_markdown_preview_toggle=3
 
 " Nvim specific
 "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
