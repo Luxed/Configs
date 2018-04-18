@@ -113,8 +113,6 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'udalov/kotlin-vim'
 
 " -- Syntax checker
-" Replaced by ALE
-"Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
 
 " Auto Completion and Snippets
@@ -129,7 +127,6 @@ Plug 'sebastianmarkow/deoplete-rust'
 " Interface and Themes
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
 Plug 'flazz/vim-colorschemes'
 Plug 'Yggdroot/indentLine'
@@ -140,23 +137,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 "Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar' " Official git repo
-"Plug 'ithinuel/tagbar'
+Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 "Plug 'shime/vim-livedown'
 "Plug 'yashsriv/vim-instant-pandoc'
 "Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'Luxed/vim-markdown-preview'
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'Luxed/vim-markdown-preview', { 'branch': 'firefox-quantum' }
 
 call plug#end()
-
-" Syntastic configuration
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_loc_list_height = 3
 
 " Airline configuration
 let g:airline_powerline_fonts = 1
@@ -244,7 +234,7 @@ let g:pandoc#modules#disabled = ["spell"]
 
 " Vim markdown preview config
 let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_browser='firefox'
+let vim_markdown_preview_browser='Firefox Quantum'
 let vim_markdown_preview_pandoc=1
 let vim_markdown_preview_use_xdg_open=1
 "let vim_markdown_preview_toggle=3
