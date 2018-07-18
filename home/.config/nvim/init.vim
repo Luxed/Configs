@@ -18,7 +18,7 @@ filetype plugin indent on
 set wildmenu
 set showcmd
 "redraw when needed
-set lazyredraw
+"set lazyredraw
 
 set showmatch
 
@@ -111,45 +111,44 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'udalov/kotlin-vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'hspec/Hspec.vim'
 
 " -- Syntax checker
 Plug 'w0rp/ale'
 
 " Auto Completion and Snippets
 " Plug 'valloric/youcompleteme' " deoplete is being tested as a replacement
-" (works great for Rust)
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim'
 Plug 'sebastianmarkow/deoplete-rust'
+"Plug 'eagletmt/neco-ghc'
 
 " Interface and Themes
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-signify'
 Plug 'flazz/vim-colorschemes'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 
 " -- Utility
 Plug 'tpope/vim-fugitive'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 "Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
-"Plug 'shime/vim-livedown'
-"Plug 'yashsriv/vim-instant-pandoc'
-"Plug 'JamshedVesuna/vim-markdown-preview'
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'Luxed/vim-markdown-preview', { 'branch': 'firefox-quantum' }
 
 call plug#end()
 
 " Airline configuration
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 " show buffers at the top of the screen
 let g:airline#extensions#tabline#enabled = 1
 " only show the filename
@@ -158,8 +157,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " YouCompleteMe config
 "let g:ycm_rust_src_path="/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " Supertab Config
 let g:SuperTabDefaultCompletionType = '<C-n>'
@@ -179,19 +178,19 @@ let g:NERDTreeShowHidden=1
 let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {
     \ 'rust': ['rls'],
-    \ 'glsl': ['glslang']
+    \ 'glsl': ['glslang'],
+    \ 'haskell': ['stack-ghc']
 \}
 "let g:ale_linters = {'rust': ['rustc']}
 "let g:ale_sign_column_always = 1
-let g:ale_rust_rls_toolchain='nightly'
-let g:ale_lint_delay=50
+let g:ale_rust_rls_toolchain='beta'
+"let g:ale_lint_delay=50
 nmap <leader>an :ALENextWrap<CR>
 nmap <leader>ap :ALEPreviousWrap<CR>
 
-" Last because of plugin
 " Force colors to 256
 set t_Co=256
-colorscheme kolor
+colorscheme kolor_custom
 
 " indentLine config
 let g:indentLine_setColors = 0
@@ -223,11 +222,11 @@ nmap <C-T> :TagbarToggle<CR><C-W><C-L>
 let g:deoplete#enable_at_startup = 1
 
 " Deoplete-rust configuration
-let g:deoplete#sources#rust#racer_binary = '/home/corentin/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '/home/corentin/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
+let g:deoplete#sources#rust#racer_binary = '/home/luxed/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
 
 " Pandoc vim config
-let g:pandoc#modules#disabled = ["spell"]
+let g:pandoc#modules#disabled = ['spell']
 
 " Instant pandoc config
 "let g:instant_pandoc_autostart = 0
@@ -240,5 +239,5 @@ let vim_markdown_preview_use_xdg_open=1
 "let vim_markdown_preview_toggle=3
 
 " Nvim specific
-"let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-"set guicursor=
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
