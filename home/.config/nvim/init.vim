@@ -18,7 +18,7 @@ filetype plugin indent on
 set wildmenu
 set showcmd
 "redraw when needed
-"set lazyredraw
+set lazyredraw
 
 set showmatch
 
@@ -40,19 +40,11 @@ set cmdheight=2
 set foldmethod=syntax
 
 " Enable code completion
-set omnifunc=syntaxcomplete#Complete
-
-" Add $ at end of change section
-" set cpoptions+=$
-
-" Enable virtual editing (being able to walk through nothing)
-" set virtualedit=all
-
-" Nvim's terminal keybinds
-"tnoremap <Esc> <C-\><C-N>
+"set omnifunc=syntaxcomplete#Complete
 
 " Key bindings
 let mapleader = ","
+
 " exit terminal
 tnoremap <leader>n <C-\><C-N>
 " remove highlight
@@ -65,6 +57,8 @@ nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
+nmap <Space> za
+nmap <leader><Space> zc
 
 " Enable autowrite
 set autowrite
@@ -113,30 +107,32 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'udalov/kotlin-vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'hspec/Hspec.vim'
+Plug 'junegunn/vader.vim'
+Plug 'vim-python/python-syntax'
 
-" -- Syntax checker
+" -- Syntax/Error checker
+" NOTE: Consider testing 'autozimu/LanguageClient-neovim' as an LSP
+" alternative
 Plug 'w0rp/ale'
 
 " Auto Completion and Snippets
-" Plug 'valloric/youcompleteme' " deoplete is being tested as a replacement
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim'
 Plug 'sebastianmarkow/deoplete-rust'
-"Plug 'eagletmt/neco-ghc'
+Plug 'zchee/deoplete-jedi'
 
 " Interface and Themes
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-signify'
 Plug 'flazz/vim-colorschemes'
-"Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 
 " -- Utility
 Plug 'tpope/vim-fugitive'
-"Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 "Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -144,6 +140,9 @@ Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'Luxed/vim-markdown-preview', { 'branch': 'firefox-quantum' }
+" Python code folding
+Plug 'tmhedberg/simpylfold'
+Plug 'AndrewRadev/bufferize.vim'
 
 call plug#end()
 
@@ -153,15 +152,6 @@ let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 " only show the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-" YouCompleteMe config
-"let g:ycm_rust_src_path="/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-" make YCM compatible with UltiSnips (using supertab)
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
-" Supertab Config
-let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips config
 let g:UltiSnipsExpandTrigger='<tab>'
@@ -173,31 +163,20 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeShowHidden=1
 
 " Ale Configs
-"let g:ale_rust_cargo_use_check=0
-"let g:ale_rust_cargo_check_all_targets=0
 let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {
-    \ 'rust': ['rls'],
-    \ 'glsl': ['glslang'],
-    \ 'haskell': ['stack-ghc']
+    \ 'rust'    : ['rls'],
+    \ 'glsl'    : ['glslang'],
+    \ 'haskell' : ['hie']
 \}
-"let g:ale_linters = {'rust': ['rustc']}
-"let g:ale_sign_column_always = 1
-let g:ale_rust_rls_toolchain='beta'
+let g:ale_rust_rls_toolchain = 'stable'
+let g:ale_completion_enabled = 0
+let g:ale_open_list = 0
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
 "let g:ale_lint_delay=50
 nmap <leader>an :ALENextWrap<CR>
 nmap <leader>ap :ALEPreviousWrap<CR>
-
-" Force colors to 256
-set t_Co=256
-colorscheme kolor_custom
-
-" indentLine config
-let g:indentLine_setColors = 0
-let g:indentLine_color_term = 235
-let g:indentLine_concealcursor=0
-let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_faster = 1
 
 " CtrlP config
 " Setup some default ignores
@@ -206,8 +185,6 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
 \}
 " Use the nearest .git directory as the cwd
-" This makes a lot of sense if you are working on a project that is in version
-" control. It also supports works with .svn, .hg, .bzr.
 let g:ctrlp_working_path_mode = 'r'
 " ctrlp bindings
 nmap <leader>pp :CtrlP<CR>
@@ -219,17 +196,17 @@ nmap <leader>ps :CtrlPMRU<CR>
 nmap <C-T> :TagbarToggle<CR><C-W><C-L>
 
 " Deoplete configuration
+" Remove preview window
+set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
-
 " Deoplete-rust configuration
 let g:deoplete#sources#rust#racer_binary = '/home/luxed/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path = '/home/luxed/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
+let g:deoplete#sources#rust#documentation_max_height = 0
+let g:deoplete#sources#jedi#show_docstring = 1
 
 " Pandoc vim config
 let g:pandoc#modules#disabled = ['spell']
-
-" Instant pandoc config
-"let g:instant_pandoc_autostart = 0
 
 " Vim markdown preview config
 let vim_markdown_preview_hotkey='<C-m>'
@@ -238,6 +215,13 @@ let vim_markdown_preview_pandoc=1
 let vim_markdown_preview_use_xdg_open=1
 "let vim_markdown_preview_toggle=3
 
-" Nvim specific
+let g:python_highlight_all = 1
+
+" Force colors to 256
+set t_Co=256
+" Use my custom kolor colorscheme
+colorscheme kolor_custom
+
+" Remove issues on ShellInABox and Butterfly terminal
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 set guicursor=
