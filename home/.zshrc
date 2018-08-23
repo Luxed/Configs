@@ -89,19 +89,12 @@ source $ZSH/oh-my-zsh.sh
 alias ls='ls --color=auto'
 alias la='ls -la'
 alias ll="la"
+alias l="la -h"
 alias grep='grep --color=auto'
-alias pacup='pacaur -Syyu'
-alias pacinst='pacaur -S'
-alias pacrem='pacaur -R'
-alias pacsearch='pacaur -Ss'
-alias mode="~/.scripts/mode"
-alias maintenance="~/.scripts/maintenance"
 
-export PYTHONPATH="/usr/lib/python3.5/site-packages"
-
-BROWSER=/usr/bin/chromium
+BROWSER=/usr/bin/opera-developer
 VISUAL=/usr/bin/nvim
 EDITOR=/usr/bin/nvim
 
 #source "/home/luxed/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+#export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
