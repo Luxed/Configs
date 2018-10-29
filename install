@@ -1,9 +1,50 @@
 #!/bin/bash
 if [ $1 == "arch" ]; then
         echo "Installation for arch linux"
-        cd home
-        cp -rf ./ ~
-	    chmod 755 ~/.bashrc
-        pacaur -S i3 i3lock i3status i3blocks rofi rxvt-unicode vim vim-airline compton conky feh synapse playerctl acpi arc-gtk-theme arc-icon-theme
-        xrdb ~/.Xresources
+	# Installing yay
+	sudo pacman -S yay
+	# Installing all the required packages
+	yay -S \
+		ly-git \
+		i3 \
+		rofi \
+		polybar \
+		kitty \
+		htop \
+		neovim \
+		ranger \
+		zsh \
+		python-pip \
+		mesa \
+		lib32-mesa \
+		libva-mesa-driver \
+		lib32-libva-mesa-driver \
+		mesa-vdpau \
+		lib32-mesa-vdpau \
+		xorg \
+		xorg-drivers \
+		curl \
+		opera \
+		firefox \
+		playerctl \
+		xclip \
+		nerd-fonts-fira-mono \
+		nerd-fonts-fira-code
+	# Changing the shell
+	sudo chsh /bin/zsh $USER
+	# Installing the python neovim module
+	sudo pip install neovim
+	# Installing OhMyZsh
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	# Installing vim-plug
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	# Installing my configurations
+	git clone https://github.com/luxed/nvim-config ~/.config/nvim
+	git clone https://github.com/luxed/configs ~/git/configs
+	cp ~/git/configs/home/.config ~/
+	cp ~/git/configs/home/.zshrc ~/
+	cp ~/git/configs/home/.oh-my-zsh ~/
+	# Activating Ly as the default Display Manager
+	sudo systemctl enable ly.service
 fi
