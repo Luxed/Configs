@@ -1,9 +1,13 @@
 #!/bin/bash
 if [ $1 == "arch" ]; then
-        echo "Installation for arch linux"
-	# Installing yay
+    echo "==========================="
+    echo "Installation for arch linux"
+    echo "==========================="
+
+    echo "Installing yay"
 	sudo pacman -S yay
-	# Installing all the required packages
+
+	echo "Installing all the required packages"
 	yay -S \
 		ly-git \
 		i3 \
@@ -28,23 +32,34 @@ if [ $1 == "arch" ]; then
 		firefox \
 		playerctl \
 		xclip \
+        otf-fira-code \
 		nerd-fonts-fira-mono \
 		nerd-fonts-fira-code
-	# Changing the shell
+
+	echo "Changing the shell"
 	sudo chsh /bin/zsh $USER
-	# Installing the python neovim module
+
+	echo "Installing the python neovim module"
 	sudo pip install neovim
-	# Installing OhMyZsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	# Installing vim-plug
+
+	echo "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	echo "Installing vim-plug"
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	# Installing my configurations
+
+	echo "Installing my configurations"
 	git clone https://github.com/luxed/nvim-config ~/.config/nvim
-	git clone https://github.com/luxed/configs ~/git/configs
-	cp ~/git/configs/home/.config ~/
-	cp ~/git/configs/home/.zshrc ~/
-	cp ~/git/configs/home/.oh-my-zsh ~/
-	# Activating Ly as the default Display Manager
+	#git clone https://github.com/luxed/configs ~/git/configs
+	cp -r ./home/.config ~/
+	cp -r ./home/.zshrc ~/
+	cp -r ./home/.oh-my-zsh ~/
+
+	echo "Activating Ly as the default Display Manager"
 	sudo systemctl enable ly.service
+
+    echo "=================================="
+    echo "Don't forget to update and register plugins for neovim (PlugUpdate and UpdateRemotePlugins)"
+    echo "=================================="
 fi
