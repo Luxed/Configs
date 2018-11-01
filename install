@@ -9,18 +9,24 @@ if [ $1 == "arch" ]; then
     sudo pacman -S yay
 
     echo "Installing all the required packages"
-    yay -S \
+    graphics=(\
         ly-git \
         i3 \
         rofi \
         polybar \
-        kitty \
+        kitty)
+    terminal=(\
         htop \
         neovim \
         ranger \
         w3m \
-        zsh \
-        python-pip \
+        zsh)
+    tools=(\
+        curl \
+        playerctl \
+        xclip \
+        python-pip)
+    drivers=(\
         mesa \
         lib32-mesa \
         libva-mesa-driver \
@@ -28,15 +34,16 @@ if [ $1 == "arch" ]; then
         mesa-vdpau \
         lib32-mesa-vdpau \
         xorg \
-        xorg-drivers \
-        curl \
+        xorg-drivers)
+    internet=(\
         opera \
-        firefox \
-        playerctl \
-        xclip \
+        firefox)
+    fonts=(\
         otf-fira-code \
         nerd-fonts-fira-mono \
-        nerd-fonts-fira-code
+        nerd-fonts-fira-code)
+
+    yay -S $graphics $terminal $tools $drivers $internet $fonts
 
     echo "Changing the shell"
     sudo chsh /bin/zsh $USER
