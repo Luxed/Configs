@@ -18,6 +18,7 @@ if [ $1 == "arch" ]; then
 		htop \
 		neovim \
 		ranger \
+        w3m \
 		zsh \
 		python-pip \
 		mesa \
