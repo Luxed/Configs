@@ -14,7 +14,20 @@ if [ $1 == "arch" ]; then
         i3 \
         rofi \
         polybar \
+        compton \
         kitty)
+    graphics_dependencies=(\
+        jsoncpp \
+        libnl)
+    audio=(\
+        libmpdclient \
+        alsa-utils \
+        alsa-plugins \
+        alsa-lib \
+        alsa-firmware \
+        pulseaudio \
+        pavucontrol \
+        clementine)
     terminal=(\
         htop \
         neovim \
