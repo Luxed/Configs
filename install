@@ -59,7 +59,7 @@ if [ $1 == "arch" ]; then
         nerd-fonts-fira-mono \
         nerd-fonts-fira-code)
 
-    #yay -S ${graphics[@]} ${graphics_dependencies[@]} ${audio[@]} ${terminal[@]} ${tools[@]} ${drivers[@]} ${internet[@]} ${fonts[@]}
+    yay -S ${graphics[@]} ${graphics_dependencies[@]} ${audio[@]} ${terminal[@]} ${tools[@]} ${drivers[@]} ${internet[@]} ${fonts[@]}
 
     echo "Changing the shell"
     sudo chsh /bin/zsh $USER
