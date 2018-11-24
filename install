@@ -25,7 +25,8 @@ if [ $1 == "arch" ]; then
         lxappearance \
         arc-kde \
         arc-gtk-theme \
-        arc-icon-theme)
+        arc-icon-theme \
+        kvantum-qt5 kvantum-theme-arc)
     audio=(\
         libmpdclient \
         alsa-utils \
@@ -35,7 +36,8 @@ if [ $1 == "arch" ]; then
         pulseaudio \
         pulseaudio-alsa \
         pavucontrol \
-        clementine)
+        cmus \
+        clementine-qt5-git)
     terminal=(\
         htop \
         neovim \
