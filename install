@@ -21,6 +21,11 @@ if [ $1 == "arch" ]; then
     graphics_dependencies=(\
         jsoncpp \
         libnl)
+    themes=(\
+        lxappearance \
+        arc-kde \
+        arc-gtk-theme \
+        arc-icon-theme)
     audio=(\
         libmpdclient \
         alsa-utils \
@@ -59,7 +64,7 @@ if [ $1 == "arch" ]; then
         nerd-fonts-fira-mono \
         nerd-fonts-fira-code)
 
-    yay -S ${graphics[@]} ${graphics_dependencies[@]} ${audio[@]} ${terminal[@]} ${tools[@]} ${drivers[@]} ${internet[@]} ${fonts[@]}
+    yay -S ${graphics[@]} ${graphics_dependencies[@]} ${themes[@]} ${audio[@]} ${terminal[@]} ${tools[@]} ${drivers[@]} ${internet[@]} ${fonts[@]}
 
     echo "Changing the shell"
     sudo chsh /bin/zsh $USER
