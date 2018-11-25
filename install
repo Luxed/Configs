@@ -42,12 +42,14 @@ if [ $1 == "arch" ]; then
         htop \
         neovim \
         ranger \
+        highlight \
         w3m \
         zsh)
     tools=(\
         curl \
         playerctl \
         xclip \
+        transmission-gtk \
         python-pip)
     drivers=(\
         mesa \
@@ -87,6 +89,8 @@ if [ $1 == "arch" ]; then
     cp -r ./home/.config ~/
     cp -r ./home/.zshrc ~/
     cp -r ./home/.oh-my-zsh ~/
+
+    git clone https://github.com/x70b1/polybar-scripts ~/.config/polybar/polybar-scripts
 
     echo "Activating Ly as the default Display Manager"
     sudo systemctl enable ly.service
