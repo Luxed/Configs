@@ -4,7 +4,8 @@
 ;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
 ;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
 ;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗ ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
 ;
@@ -50,19 +51,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = FuraMono Nerd Font:pixelsize=10;1
-;font-0 = Fira Mono:pixelsize=10;1
-;font-1 = Font Awesome 5 Free:pixelsize=10;3
-;font-2 = Font Awesome 5 Free Solid:pixelsize=10;3
-;font-3 = Font Awesome 5 Brands:pixelsize=10;3
-;font-0 = fixed:pixelsize=10;1
-;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-;font-2 = siji:pixelsize=10;1
-;font-3 = FontAwesome:pixelsize=10;3
+font-0 = FiraMono NF:pixelsize=10
 
-modules-left = i3 xwindow
+modules-left = i3 player-cmus 
 modules-center = date
-modules-right = player-mpris-simple filesystem xbacklight pulseaudio memory cpu wlan battery temperature powermenu
+modules-right = filesystem xbacklight pulseaudio memory cpu wlan battery temperature powermenu
 
 tray-position = right
 tray-padding = 2
@@ -92,8 +85,10 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
+mount-1 = /home
+;mount-2 = /mnt/Data-Server
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %used%/%total%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground}
 
@@ -102,6 +97,7 @@ type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
+fuzzy-match = true
 
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
@@ -155,7 +151,7 @@ bar-empty-foreground = ${colors.foreground}
 type = internal/cpu
 interval = 2
 format = <label> <ramp-coreload>
-format-prefix = " "
+format-prefix = "CPU "
 format-prefix-foreground = ${colors.foreground}
 format-underline = #f90000
 label = %percentage:2%%
@@ -175,7 +171,7 @@ interval = 2
 format-prefix = "MEM "
 format-prefix-foreground = ${colors.foreground}
 format-underline = #4bffdc
-label = %percentage_used%%
+label = %gb_used% / %gb_total%
 
 [module/wlan]
 type = internal/network
@@ -225,38 +221,39 @@ date-alt = "%Y-%m-%d"
 time = %H:%M:%S
 time-alt = %H:%M:%S
 
-;format-prefix = 
+;format-prefix = " "
+;format-prefix = "%{F#00AAFF}DATE "
 format-prefix-foreground = ${colors.foreground}
 format-underline = #0a6cf5
 
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
+;[module/pulseaudio]
+;type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume =   %percentage%%
-label-volume-foreground = ${root.foreground}
+;format-volume = <label-volume> <bar-volume>
+;label-volume =   %percentage%%
+;label-volume-foreground = ${root.foreground}
 
-label-muted =   muted
-label-muted-foreground = ${colors.foreground}
+;label-muted =   muted
+;label-muted-foreground = ${colors.foreground}
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground}
+;bar-volume-width = 10
+;bar-volume-foreground-0 = #55aa55
+;bar-volume-foreground-1 = #55aa55
+;bar-volume-foreground-2 = #55aa55
+;bar-volume-foreground-3 = #55aa55
+;bar-volume-foreground-4 = #55aa55
+;bar-volume-foreground-5 = #f5a70a
+;bar-volume-foreground-6 = #ff5555
+;bar-volume-gradient = false
+;bar-volume-indicator = |
+;bar-volume-indicator-font = 2
+;bar-volume-fill = ─
+;bar-volume-fill-font = 2
+;bar-volume-empty = ─
+;bar-volume-empty-font = 2
+;bar-volume-empty-foreground = ${colors.foreground}
 
 [module/battery]
 type = internal/battery
@@ -314,35 +311,6 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground}
 
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open =  
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
-
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -354,12 +322,22 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-[module/player-mpris-simple]
+;[module/player-mpris-simple]
+;type = custom/script
+;exec = ~/.config/polybar/polybar-scripts/polybar-scripts/player-mpris-simple/player-mpris-simple.sh
+;interval = 3
+;click-left = playerctl previous
+;click-right = playerctl next
+;click-middle = playerctl play-pause
+
+;[module/player-mpris-tail]
+;type = custom/script
+;exec = ~/.config/polybar/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py -f '{icon} {artist} - {title}'
+;tail = true
+
+[module/player-cmus]
 type = custom/script
-exec = ~/.config/polybar/polybar-scripts/polybar-scripts/player-mpris-simple/player-mpris-simple.sh
-interval = 3
-click-left = playerctl previous
-click-right = playerctl next
-click-middle = playerctl play-pause
+exec = ~/.config/polybar/polybar-scripts/polybar-scripts/player-cmus/player-cmus.sh
+interval = 1
 
 ; vim:ft=dosini
