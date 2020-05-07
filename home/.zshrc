@@ -12,5 +12,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias nvgkt="nvim-gtk"
 alias ls="lsd"
+alias cp="rsync -ah --progress"
 
 eval $(thefuck --alias)
