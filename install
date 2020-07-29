@@ -98,4 +98,35 @@ if [ $1 == "arch" ]; then
     echo "=================================="
     echo "Don't forget to update and register plugins for neovim (PlugUpdate and UpdateRemotePlugins)"
     echo "=================================="
+elif [ $1 == "fedora" ]; then
+    echo "Installing rpmfusion repositories"
+    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+    echo "Installing all the required packages"
+    sudo dnf install i3 rofi polybar playerctl dunst kitty htop ranger zsh lsd bat thefuck flatpak python3 python3-pip npm cmus
+
+    sudo dnf copr enable agriffis/neovim-nightly
+    sudo dnf install neovim
+
+    echo "Installing flatpak packages"
+    flatpak remote-add --if-not-exists flathub https://flathub.flatpakrepo
+    flatpak install slack discord
+
+    echo "Changing the shell to zsh"
+    sudo chsh /bin/zsh $USER
+
+    echo "Installing neovim modules"
+    sudo pip install neovim
+    sudo npm install neovim
+
+    echo "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    echo "Installing Neovim config"
+    git clone https://github.com/luxed/nvim-config.git ~/.config/nvim
+
+    echo "Installing Rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+    ./create_symlinks.sh
 fi
