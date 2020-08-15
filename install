@@ -85,7 +85,6 @@ if [ $1 == "arch" ]; then
 
     echo "Installing my configurations"
     git clone https://github.com/luxed/nvim-config ~/.config/nvim
-    #git clone https://github.com/luxed/configs ~/git/configs
     cp -r ./home/.config ~/
     cp -r ./home/.zshrc ~/
     cp -r ./home/.oh-my-zsh ~/
@@ -103,7 +102,7 @@ elif [ $1 == "fedora" ]; then
     sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
     echo "Installing all the required packages"
-    sudo dnf install i3 rofi polybar playerctl dunst kitty htop ranger zsh lsd bat thefuck flatpak python3 python3-pip npm cmus
+    sudo dnf install i3 rofi polybar playerctl dunst kitty htop ranger zsh lsd bat thefuck flatpak python3 python3-pip npm cmus arandr ripgrep pavucontrol
 
     sudo dnf copr enable agriffis/neovim-nightly
     sudo dnf install neovim
@@ -113,7 +112,7 @@ elif [ $1 == "fedora" ]; then
     flatpak install slack discord
 
     echo "Changing the shell to zsh"
-    sudo chsh /bin/zsh $USER
+    sudo usermod --shell /usr/bin/zsh $USER
 
     echo "Installing neovim modules"
     sudo pip install neovim
