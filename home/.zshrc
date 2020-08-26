@@ -11,7 +11,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 alias nvgkt="nvim-gtk"
-alias ls="lsd"
+alias ls="lsd --group-dirs first"
 alias cp="rsync -ah --progress"
 
 eval $(thefuck --alias)
