@@ -11,3 +11,5 @@ ln -s $dir/home/.config/polybar ~/.config/polybar
 ln -s $dir/home/.config/rofi ~/.config/rofi
 
 ln -fs $dir/home/.zshrc ~/.zshrc
+
+ln -s $dir/home/scripts ~/scripts

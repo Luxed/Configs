@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "updating zypper packages"
+sudo zypper update
+
+echo "updating npm global packages"
+sudo npm update -g
+
+echo "updating flatpak"
+flatpak update

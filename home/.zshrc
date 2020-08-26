@@ -1,4 +1,4 @@
-export PATH=~/.cargo/bin:~/.yarn/bin:~/work/cloud/development-tools/scripts:$PATH
+export PATH=~/scripts:~/.cargo/bin:~/.yarn/bin:~/work/cloud/development-tools/scripts:$PATH
 export ZSH="/home/cbrunel/.oh-my-zsh"
 
 if test -e ~/work/.work-env; then
