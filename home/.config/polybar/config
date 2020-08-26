@@ -1,21 +1,3 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;
-;==========================================================
-
 [colors]
 background = #55222222
 background-alt = #444
@@ -48,7 +30,7 @@ module-margin-right = 2
 
 font-0 = FiraCode Nerd Font:pixelsize=10
 
-modules-left = i3 player-cmus 
+modules-left = i3 playerctl
 modules-center = date
 modules-right = filesystem xbacklight pulseaudio memory cpu wlan battery temperature powermenu
 
@@ -220,7 +202,7 @@ format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 =  
+ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground}
@@ -267,9 +249,12 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-[module/player-cmus]
+[module/playerctl]
 type = custom/script
-exec = ~/.config/polybar/scripts/player-cmus/player-cmus.sh
+exec = ~/.config/polybar/scripts/playerctl.sh
 interval = 1
+click-left = playerctl previous &
+click-right = playerctl next &
+click-middle = playerctl play-pause &
 
 ; vim:ft=dosini
