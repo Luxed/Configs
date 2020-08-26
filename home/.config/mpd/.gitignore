@@ -3,3 +3,4 @@ log
 socket
 state
 pid
+mpd.fifo
