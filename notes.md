@@ -6,5 +6,4 @@
 
 ## TODO
 
-- make `mpd` work on my server and connect remotely to it
-- make `fish` my new default shell
+- Make a personnal Open Build Service repository for missing packages (like Powershell and Azure Data Studio)
