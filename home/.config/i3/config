@@ -168,9 +168,8 @@ bindsym XF86AudioPrev exec playerctl previous
 exec --no-startup-id $HOME/.screenlayout/main.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-# Fancy composition
-# exec_always --no-startup-id compton --config ~/.config/i3/compton/akrasic_compton.conf
 # Backgrounds
 # exec --no-startup-id nitrogen --restore
+exec --no-startup-id hsetroot -solid "#000000"
 
 # vim: filetype=i3config foldmethod=marker
