@@ -2,13 +2,12 @@
 ; Transparent background
 background = #00FFFFFF
 background-alt = #00FFFFFF
+background-selected = #d3dae3
 foreground = #d3dae3
-foreground-alt = #555
+foreground-alt = #444
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
-background-module = #383c4a
-selected = #5294e2
 
 [bar/example]
 monitor = ${env:MONITOR:}
@@ -19,16 +18,17 @@ fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = FiraCode Nerd Font:style=Medium:size=10;1
+font-0 = FiraCode Nerd Font:style=Medium:size=10;2
 
+module-margin = 1
 modules-left = i3 playerctl
 modules-center = date
 modules-right = filesystem memory cpu
 
 tray-position = right
 tray-padding = 2
-tray-transparent = true
-tray-background = ${colors.background-module}
+tray-background = ${colors.background}
+tray-offset-y = -1
 
 override-redirect = false
 
@@ -58,13 +58,13 @@ label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${colors.foreground}
-label-focused-foreground = ${colors.background-module}
+label-focused-background = ${colors.background-selected}
+label-focused-foreground = ${colors.foreground-alt}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
-label-unfocused-background = ${colors.background-module}
+label-unfocused-background = ${colors.background}
 label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
@@ -86,8 +86,7 @@ label = %title:0:30:...%
 type = custom/script
 exec = ~/.config/polybar/scripts/playerctl.sh
 interval = 1
-format-background = ${colors.background-module}
-format-padding = 1
+format-background = ${colors.background}
 click-left = playerctl previous &
 click-right = playerctl next &
 click-middle = playerctl play-pause &
@@ -103,8 +102,7 @@ time = %H:%M:%S
 time-alt = %H:%M:%S
 
 format-prefix-foreground = ${colors.foreground}
-format-background = ${colors.background-module}
-format-padding = 1
+format-background = ${colors.background}
 
 label = %date% %time%
 
@@ -114,10 +112,10 @@ interval = 25
 
 mount-0 = /
 mount-1 = /home
-spacing = 0
+spacing = 1
 
-label-mounted = " %{F#5294e2}%mountpoint%%{F-}: %used%/%total% "
-label-mounted-background = ${colors.background-module}
+label-mounted = "%{F#5294e2}%mountpoint%%{F-}: %used%/%total%"
+label-mounted-background = ${colors.background}
 label-unmounted = %mountpoint% not mounted
 
 [module/xbacklight]
@@ -140,20 +138,18 @@ bar-empty-foreground = ${colors.foreground}
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "MEM "
+format-prefix = "%{F#5294e2}MEM%{F-}: "
 format-prefix-foreground = ${colors.foreground}
-format-background = ${colors.background-module}
-format-padding = 1
+format-background = ${colors.background}
 label = %gb_used%/%gb_total%
 
 [module/cpu]
 type = internal/cpu
 interval = 2
 format = <label>
-format-prefix = "CPU "
+format-prefix = "%{F#5294e2}CPU%{F-}:"
 format-prefix-foreground = ${colors.foreground}
-format-background = ${colors.background-module}
-format-padding = 1
+format-background = ${colors.background}
 label = %percentage:2%%
 
 ramp-coreload-0 = ▁
