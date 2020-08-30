@@ -121,22 +121,13 @@ bindsym $mod+r mode "resize"
 
 # Custom colors {{{
 
-# Arc Dark theme
-#set $bg-color 	         #2f343f
-#set $bg-color-focused    #f2f2f2
-#set $inactive-bg-color   #21242c
+set $bg-color 	         #2f343f
+set $bg-color-focused    #f2f2f2
+set $inactive-bg-color   #21242c
 set $text-color          #f3f4f5
 set $text-color-black    #000000
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
-# Deus theme (gruvbox equivalent)
-set $bg-color 	         #2c323b
-set $bg-color-focused    #f2f2f2
-set $inactive-bg-color   #21242c
-#set $text-color          #ebdbb2
-#set $text-color-black    #000000
-#set $inactive-text-color #5c543d
-#set $urgent-bg-color     #fb4934
 
 # window colors
 #                       border              background         text                 indicator child_border

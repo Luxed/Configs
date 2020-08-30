@@ -2,7 +2,7 @@
 ; Transparent background
 background = #00FFFFFF
 background-alt = #00FFFFFF
-background-selected = #d3dae3
+background-selected = #f2f2f2
 foreground = #d3dae3
 foreground-alt = #444
 primary = #ffb52a
@@ -37,10 +37,6 @@ cursor-scroll = ns-resize
 
 [settings]
 screenchange-reload = true
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
 
 [module/i3]
 type = internal/i3
@@ -146,8 +142,8 @@ label = %gb_used%/%gb_total%
 [module/cpu]
 type = internal/cpu
 interval = 2
-format = <label>
-format-prefix = "%{F#5294e2}CPU%{F-}:"
+format = <label> <ramp-coreload>
+format-prefix = "%{F#5294e2}CPU%{F-}: "
 format-prefix-foreground = ${colors.foreground}
 format-background = ${colors.background}
 label = %percentage:2%%
