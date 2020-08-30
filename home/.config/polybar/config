@@ -1,71 +1,50 @@
 [colors]
-background = #55222222
-background-alt = #444
-foreground = #dfdfdf
+; Transparent background
+background = #00FFFFFF
+background-alt = #00FFFFFF
+foreground = #d3dae3
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
+background-module = #383c4a
+selected = #5294e2
 
 [bar/example]
 monitor = ${env:MONITOR:}
 width = 100%
-height = 27
+height = 30
 fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
-line-color = #f00
-
-border-size = 0
-border-color = #00000000
-
-padding-left = 0
-padding-right = 2
-
-module-margin-left = 1
-module-margin-right = 2
-
-font-0 = FiraCode Nerd Font:pixelsize=10
+font-0 = FiraCode Nerd Font:style=Medium:size=10;1
 
 modules-left = i3 playerctl
 modules-center = date
-modules-right = filesystem xbacklight pulseaudio memory cpu wlan battery temperature
+modules-right = filesystem memory cpu
 
 tray-position = right
 tray-padding = 2
 tray-transparent = true
-tray-background = ${colors.background}
-
-;wm-restack = bspwm
-;wm-restack = i3
+tray-background = ${colors.background-module}
 
 override-redirect = false
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+[settings]
+screenchange-reload = true
 
-[module/filesystem]
-type = internal/fs
-interval = 25
-
-mount-0 = /
-mount-1 = /home
-;mount-2 = /mnt/Data-Server
-
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %used%/%total%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground}
+[global/wm]
+margin-top = 5
+margin-bottom = 5
 
 [module/i3]
 type = internal/i3
-format = <label-state> <label-mode>
+format = <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false
 fuzzy-match = true
@@ -79,24 +58,67 @@ label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${colors.background}
-label-focused-underline= ${colors.primary}
+label-focused-background = ${colors.foreground}
+label-focused-foreground = ${colors.background-module}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
+label-unfocused-background = ${colors.background-module}
 label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
 label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
+label-visible-foreground = ${self.label-focused-foreground}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
 label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/playerctl]
+type = custom/script
+exec = ~/.config/polybar/scripts/playerctl.sh
+interval = 1
+format-background = ${colors.background-module}
+format-padding = 1
+click-left = playerctl previous &
+click-right = playerctl next &
+click-middle = playerctl play-pause &
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = "%Y-%m-%d"
+date-alt = "%Y-%m-%d"
+
+time = %H:%M:%S
+time-alt = %H:%M:%S
+
+format-prefix-foreground = ${colors.foreground}
+format-background = ${colors.background-module}
+format-padding = 1
+
+label = %date% %time%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /home
+spacing = 0
+
+label-mounted = " %{F#5294e2}%mountpoint%%{F-}: %used%/%total% "
+label-mounted-background = ${colors.background-module}
+label-unmounted = %mountpoint% not mounted
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -115,13 +137,23 @@ bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground}
 
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "MEM "
+format-prefix-foreground = ${colors.foreground}
+format-background = ${colors.background-module}
+format-padding = 1
+label = %gb_used%/%gb_total%
+
 [module/cpu]
 type = internal/cpu
 interval = 2
 format = <label>
 format-prefix = "CPU "
 format-prefix-foreground = ${colors.foreground}
-format-underline = #f90000
+format-background = ${colors.background-module}
+format-padding = 1
 label = %percentage:2%%
 
 ramp-coreload-0 = ▁
@@ -132,14 +164,6 @@ ramp-coreload-4 = ▅
 ramp-coreload-5 = ▆
 ramp-coreload-6 = ▇
 ramp-coreload-7 = █
-
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = "MEM "
-format-prefix-foreground = ${colors.foreground}
-format-underline = #4bffdc
-label = %gb_used%/%gb_total%
 
 [module/wlan]
 type = internal/network
@@ -170,21 +194,6 @@ format-connected-prefix-foreground = ${colors.foreground}
 label-connected = %local_ip%
 
 format-disconnected =
-
-[module/date]
-type = internal/date
-interval = 1
-
-date = "%Y-%m-%d"
-date-alt = "%Y-%m-%d"
-
-time = %H:%M:%S
-time-alt = %H:%M:%S
-
-format-prefix-foreground = ${colors.foreground}
-format-underline = #0a6cf5
-
-label = %date% %time%
 
 [module/battery]
 type = internal/battery
@@ -241,20 +250,5 @@ ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground}
-
-[settings]
-screenchange-reload = true
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-
-[module/playerctl]
-type = custom/script
-exec = ~/.config/polybar/scripts/playerctl.sh
-interval = 1
-click-left = playerctl previous &
-click-right = playerctl next &
-click-middle = playerctl play-pause &
 
 ; vim:ft=dosini
