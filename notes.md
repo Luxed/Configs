@@ -8,4 +8,5 @@
 
 ## TODO
 
-- Make a personnal Open Build Service (or COPR since it supports OpenSUSE and Fedora) repository for missing packages (like Powershell and Azure Data Studio)
+- Make a personnal Open Build Service (or COPR since it supports OpenSUSE and Fedora) repository for missing packages:
+  Powershell, Azure Data Studio, lsd
