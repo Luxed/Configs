@@ -1,17 +1,7 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
-
-# Font configuration
 font:
   normal:
-    #family: monospace
-    #family: 3270Narrow Nerd Font
-    #family: Hasklug Nerd Font
     family: Fira Code Nerd Font
-    #family: FiraMono Nerd Font
-    #family: Source Code Pro
-    #family: SpaceMono Nerd Font
 
-  # Point size
   size: 11.0
 
 selection:
@@ -23,8 +13,9 @@ window:
 cursor:
   unfocused_hollow: true
 
-# Live config reload (changes require restart)
 live_config_reload: true
+
+background_opacity: 0.9
 
 # Ayu color scheme (or at least something that is close)
 colors:
