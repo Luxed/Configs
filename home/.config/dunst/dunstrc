@@ -1,5 +1,5 @@
 [global]
-font = Source Code Pro 12
+font = DejaVu Sans 12
 
 markup = yes
 plain_text = no
@@ -90,7 +90,7 @@ monitor = 0
 #
 # If this option is set to mouse or keyboard, the monitor option
 # will be ignored.
-follow = mouse
+follow = keyboard
 
 # Should a notification popped up from history be sticky or timeout
 # as if it would normally do.
@@ -138,7 +138,7 @@ dmenu = /usr/bin/dmenu -p dunst:
 browser = /usr/bin/firefox -new-tab
 
 # Align icons left/right/off
-icon_position = off
+icon_position = left
 max_icon_size = 80
 
 # Paths to default icons.
