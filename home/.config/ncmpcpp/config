@@ -10,4 +10,6 @@ visualizer_look = "▓▓"
 
 volume_change_step = 5
 
+progressbar_look = "─⊙ "
+
 # vim: filetype=config
