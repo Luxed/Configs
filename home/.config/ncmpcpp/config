@@ -12,4 +12,8 @@ volume_change_step = 5
 
 progressbar_look = "─⊙ "
 
+centered_cursor = yes
+
+autocenter_mode = yes
+
 # vim: filetype=config
