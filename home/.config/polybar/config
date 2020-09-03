@@ -6,7 +6,7 @@ include-file = ~/.config/polybar/modules/i3.ini
 include-file = ~/.config/polybar/modules/memory.ini
 include-file = ~/.config/polybar/modules/playerctl.ini
 
-[bar/primary]
+[section/global_bar]
 monitor = ${env:MONITOR:}
 width = 100%
 height = 30
@@ -18,6 +18,14 @@ foreground = ${colors.foreground}
 font-0 = FiraCode Nerd Font:style=Medium:size=10;2
 
 module-margin = 1
+
+override-redirect = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/primary]
+inherit = section/global_bar
 modules-left = i3 playerctl
 modules-center = date
 modules-right = filesystem memory cpu
@@ -27,10 +35,12 @@ tray-padding = 2
 tray-background = ${colors.background}
 tray-offset-y = -1
 
-override-redirect = false
-
-cursor-click = pointer
-cursor-scroll = ns-resize
+[bar/other]
+inherit = section/global_bar
+modules-left = i3
+modules-center = date
 
 [settings]
 screenchange-reload = true
+
+# vim: filetype=dosini
