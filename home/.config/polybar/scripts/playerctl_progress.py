@@ -44,7 +44,8 @@ if status == "Playing" or status == "Paused":
 
         print("{} {}".format(current_metadata_status, progress_bar))
     except ValueError:
-        print(current_metadata_status)
+        position = os.popen("playerctl metadata --format \"{{duration(position)}}\"").read().rstrip()
+        print("{} | {}".format(current_metadata_status, position))
 elif status == "Stopped":
     print("")
 else:
