@@ -3,6 +3,7 @@ include-file = ~/.config/polybar/modules/cpu.ini
 include-file = ~/.config/polybar/modules/date.ini
 include-file = ~/.config/polybar/modules/filesystem.ini
 include-file = ~/.config/polybar/modules/i3.ini
+include-file = ~/.config/polybar/modules/info-docker.ini
 include-file = ~/.config/polybar/modules/memory.ini
 include-file = ~/.config/polybar/modules/playerctl.ini
 
@@ -39,6 +40,7 @@ tray-offset-y = -1
 inherit = section/global_bar
 modules-left = i3
 modules-center = date
+modules-right = info-docker
 
 [settings]
 screenchange-reload = true
