@@ -13,8 +13,21 @@ status_chars = {
         "Paused": '',
         "Stopped": ''
         }
-status = os.popen("playerctl status 2> /dev/null").read().rstrip()
-current_metadata = os.popen("playerctl metadata --format '{{artist}} - {{title}}' 2> /dev/null").read().rstrip()
+players_list = os.popen("playerctl --list-all 2> /dev/null").read().rstrip().splitlines(keepends=False)
+main_player = ""
+if len(players_list) > 0:
+    main_player = players_list[0]
+
+def playerctl(command):
+    formatted_command = "playerctl --player={} {} 2> /dev/null".format(main_player, command)
+    return os.popen(formatted_command).read().rstrip()
+
+status = playerctl("status")
+artist = playerctl("metadata artist")
+if artist != "":
+    artist = "{} - ".format(artist)
+title = playerctl("metadata title")
+current_metadata = "{}{}".format(artist, title)
 
 def format_progress_bar(progress_chars, progress_size, current):
     current_percent = current * 100
@@ -37,15 +50,14 @@ if status == "Playing" or status == "Paused":
     current_metadata_status = "{} {}".format(status_chars[status], current_metadata)
 
     try:
-        position = float(os.popen("playerctl metadata --format \"{{position}}\"").read().strip())
-        length = float(os.popen("playerctl metadata --format \"{{mpris:length}}\"").read().strip())
+        position = float(playerctl("position")) * 1000000
+        length = float(playerctl("metadata mpris:length"))
         current = (position / length)
         progress_bar = format_progress_bar(progress_chars, progress_size, current)
 
         print("{} {}".format(current_metadata_status, progress_bar))
     except ValueError:
-        position = os.popen("playerctl metadata --format \"{{duration(position)}}\"").read().rstrip()
-        print("{} | {}".format(current_metadata_status, position))
+        print(current_metadata_status)
 elif status == "Stopped":
     print("")
 else:
