@@ -15,7 +15,7 @@ cursor:
 
 live_config_reload: true
 
-background_opacity: 0.9
+background_opacity: 0.75
 
 # Ayu color scheme (or at least something that is close)
 colors:
