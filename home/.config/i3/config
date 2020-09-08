@@ -163,6 +163,7 @@ exec_always --no-startup-id picom --config $HOME/.config/i3/picom/picom.conf --e
 
 # Backgrounds
 exec_always --no-startup-id hsetroot -solid "#000000"
-exec_always --no-startup-id nitrogen --restore
+#exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id ~/scripts/random-wallpaper
 
 # vim: filetype=i3config foldmethod=marker

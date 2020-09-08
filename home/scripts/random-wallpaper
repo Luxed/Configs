@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# dwall possible wallpapers
+wallpapers=(bitday exodus firewatch firewatch2 forest home mall room street street2 tokyostreet)
+random_number=$(( $RANDOM % ${#wallpapers[@]} ))
+random_wallpaper=${wallpapers[$random_number]}
+
+dwall -s $random_wallpaper
