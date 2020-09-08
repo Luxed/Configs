@@ -10,4 +10,3 @@
 
 - Make a personnal Open Build Service (or COPR since it supports OpenSUSE and Fedora) repository for missing packages:
   Powershell, Azure Data Studio, lsd
-- Start using [dynamic-wallpaper](https://github.com/adi1090x/dynamic-wallpaper). Needs a script to chose a random image in a given list at each startup (so that I could have a different wallpaper per day).
