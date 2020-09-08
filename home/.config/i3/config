@@ -162,8 +162,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id picom --config $HOME/.config/i3/picom/picom.conf --experimental-backends
 
 # Backgrounds
-exec_always --no-startup-id hsetroot -solid "#000000"
+exec --no-startup-id hsetroot -solid "#000000"
 #exec_always --no-startup-id nitrogen --restore
-exec_always --no-startup-id ~/scripts/random-wallpaper
+exec --no-startup-id ~/scripts/random-wallpaper
 
 # vim: filetype=i3config foldmethod=marker
