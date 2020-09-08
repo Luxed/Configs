@@ -136,7 +136,7 @@ client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-co
 client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #ffffff   #000000
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #ffffff   #000000
 
-hide_edge_borders both
+# hide_edge_borders both
 
 # }}}
 
