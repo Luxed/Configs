@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ps aux | awk '!/awk/ && /dwall/ {print $2}' | xargs kill
+
 # dwall possible wallpapers
 wallpapers=(bitday exodus firewatch firewatch2 forest home mall room street street2 tokyostreet)
 random_number=$(( $RANDOM % ${#wallpapers[@]} ))
