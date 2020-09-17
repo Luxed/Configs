@@ -154,6 +154,8 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+bindsym $mod+Shift+s exec gnome-screenshot --interactive --area
+
 # exec --no-startup-id libinput-gestures-setup start
 
 exec --no-startup-id systemctl --user start dunst
