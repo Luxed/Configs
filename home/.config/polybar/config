@@ -6,7 +6,7 @@ include-file = ~/.config/polybar/modules/i3.ini
 include-file = ~/.config/polybar/modules/info-docker.ini
 include-file = ~/.config/polybar/modules/mem-custom.ini
 include-file = ~/.config/polybar/modules/memory.ini
-include-file = ~/.config/polybar/modules/opensuse-updates.ini
+;include-file = ~/.config/polybar/modules/opensuse-updates.ini
 include-file = ~/.config/polybar/modules/playerctl.ini
 
 [section/global_bar]
@@ -31,7 +31,7 @@ cursor-scroll = ns-resize
 inherit = section/global_bar
 modules-left = i3 playerctl
 modules-center = date
-modules-right = opensuse-updates filesystem mem-custom cpu
+modules-right = filesystem mem-custom cpu
 
 tray-position = right
 tray-padding = 2
