@@ -17,22 +17,24 @@ live_config_reload: true
 
 background_opacity: 0.85
 
-# Ayu color scheme (or at least something that is close)
+# Ayu Mirage color scheme (or at least something that is close)
 colors:
   primary:
-    background: '#0F1419'
-    foreground: '#eaeaea'
+    background: '#1F2430'
+    foreground: '#EAEAEA'
+    #foreground: '#CBCCC6' # Real ayu mirage foreground. Too grey for me
 
   selection:
-    text: '#eaeaea'
-    background: '#404040'
+    text: '#EAEAEA'
+    #text: '#CBCCC6'
+    background: '#707A8C'
 
   normal:
     black:   '#0F1419'
     red:     '#FF3333'
-    green:   '#C2D94C'
-    yellow:  '#E6B673'
-    blue:    '#39BAE6'
+    green:   '#BAE67E'
+    yellow:  '#FFE6B3'
+    blue:    '#399EE6'
     magenta: '#D4BFFF'
-    cyan:    '#59C2FF'
-    white:   '#eaeaea'
+    cyan:    '#73D0FF'
+    white:   '#FFFFFF'
