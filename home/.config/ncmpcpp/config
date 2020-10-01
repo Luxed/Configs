@@ -13,7 +13,15 @@ volume_change_step = 5
 progressbar_look = "─⊙ "
 
 centered_cursor = yes
-
 autocenter_mode = yes
+
+# always keep playlist highlight
+playlist_disable_highlight_delay = 0
+
+song_columns_list_format = (6f)[green]{NE} (20)[]{a} (50)[]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+
+playlist_display_mode = columns
+
+main_window_color = white
 
 # vim: filetype=config
