@@ -35,7 +35,7 @@ modules-right = filesystem mem-custom cpu
 
 tray-position = right
 tray-padding = 2
-tray-background = ${colors.background}
+;tray-background = ${colors.background}
 tray-offset-y = -1
 
 [bar/other]
