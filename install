@@ -141,7 +141,7 @@ elif [ $1 == "leap" ]; then
     sudo zypper refresh
 
     sudo zypper install -t pattern devel_basis devel_C_C++
-    sudo zypper install arandr i3 rofi dunst playerctl fish bat flatpak htop alacritty mpd ncmpcpp virt-manager remmina pavucontrol fzf python3 python3-pip python3-devel nodejs12 nodejs12-devel npm ripgrep code mpDris2 picom feh thunderbird hsetroot cmake polybar arc-icon-theme gtk3-metatheme-arc lxappearance mpclient
+    sudo zypper install arandr i3 rofi dunst playerctl fish bat flatpak htop alacritty mpd ncmpcpp virt-manager remmina pavucontrol fzf python3 python3-pip python3-devel nodejs12 nodejs12-devel npm ripgrep code mpDris2 picom feh thunderbird hsetroot cmake polybar arc-icon-theme gtk3-metatheme-arc lxappearance mpclient python2-dbus-python
 
     sudo pip3 install neovim pynvim thefuck
     sudo npm install -g neovim
