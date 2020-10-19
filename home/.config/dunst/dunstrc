@@ -42,19 +42,19 @@ context = ctrl+shift+period
 [urgency_low]
 frame_color = "#5294e2"
 foreground = "#f2f2f2"
-background = "#000000DD"
+background = "#00000055"
 timeout = 4
 
 [urgency_normal]
 frame_color = "#f2f2f2"
 foreground = "#f2f2f2"
-background = "#000000DD"
+background = "#00000055"
 timeout = 6
 
 [urgency_critical]
 frame_color = "#bd2c40"
 foreground = "#f2f2f2"
-background = "#000000DD"
+background = "#00000055"
 timeout = 8
 
 # vim: ft=cfg
