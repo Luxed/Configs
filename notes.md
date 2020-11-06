@@ -10,3 +10,9 @@
 
 - Make a personnal Open Build Service (or COPR since it supports OpenSUSE and Fedora) repository for missing packages:
   Powershell, Azure Data Studio, lsd
+
+## Fix alacritty scaling on X11
+
+`export $WINIT_X11_SCALE_FACTOR=1.0`
+or on fish
+`set -xU WINIT_X11_SCALE_FACTOR 1.0`
