@@ -1,6 +1,7 @@
 #!/bin/sh
 
 echo "updating zypper packages"
+sudo zypper refresh
 sudo zypper update
 
 echo "updating npm global packages"
