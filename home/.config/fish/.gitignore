@@ -1,3 +1,4 @@
 conf.d/gcloud.fish
 conf.d/work-env.fish
 fish_variables
+functions/fish_prompt.fish
