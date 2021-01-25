@@ -3,5 +3,5 @@ function ls
 end
 
 function l
-    ls -lah $argv
+    ls -lA $argv
 end
