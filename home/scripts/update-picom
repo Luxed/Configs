@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+echo "updating picom"
+cd ~/git/picom
+git pull
+git submodule update --init --recursive
+rm -rf build
+meson --buildtype=release . build
+ninja -C build
+ninja -C build install

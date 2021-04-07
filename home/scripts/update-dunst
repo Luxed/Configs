@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+echo "updating dunst"
+cd ~/git/picom
+git pull
+make -j$(nproc)
+sudo make install

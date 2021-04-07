@@ -6,5 +6,5 @@ echo "updating neovim"
 cd ~/git/neovim
 git pull
 make distclean
-make -j 16 CMAKE_BUILD_TYPE=RelWithDebInfo
+make -j$(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
