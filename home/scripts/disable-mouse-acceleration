@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Set "flat" acceleration (disable acceleration)
+
+id=$(xinput list | grep pointer | grep Glorious | cut -d= -f 2 | cut -f 1)
+
+xinput set-prop $id 'libinput Accel Profile Enabled' 0, 1
+xinput list-props $id | grep 'Accel Profile Enabled'
