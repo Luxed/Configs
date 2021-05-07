@@ -2,8 +2,8 @@
 
 set -e
 
-echo "updating dunst"
-cd ~/git/picom
-git pull
+#echo "updating dunst"
+cd ~/git/dunst
+#git pull
 make -j$(nproc)
 sudo make install
