@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+#set -e
+
+cd ~/git/mpDris2
+
+./autogen.sh --sysconfdir=/etc
+sudo make install
