@@ -12,7 +12,7 @@ do
     pkg_name=$var
 
     # TODO: move this to make it more logical
-    pkg_build_file="$HOME/scripts/update-$pkg_name"
+    pkg_build_file="$HOME/scripts/pkgup-scripts/$pkg_name"
     pkg_git_dir="$HOME/git/$pkg_name"
 
     # TODO: this could be a multi-threaded operation (in the same way that `packer-nvim` does it)
