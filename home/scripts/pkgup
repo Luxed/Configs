@@ -2,6 +2,10 @@
 
 # TODO: add a way to verify for dependencies (needs to work for different distributions)
 
+scripts_dir="$HOME/scripts/pkgup-scripts"
+git_dir="$HOME/git"
+hash_file_name="hash_installed"
+
 for var in "$@"
 do
     if [ "$var" == "" ]; then
@@ -12,8 +16,8 @@ do
     pkg_name=$var
 
     # TODO: move this to make it more logical
-    pkg_build_file="$HOME/scripts/pkgup-scripts/$pkg_name"
-    pkg_git_dir="$HOME/git/$pkg_name"
+    pkg_build_file="$scripts_dir/$pkg_name"
+    pkg_git_dir="$git_dir/$pkg_name"
 
     # TODO: this could be a multi-threaded operation (in the same way that `packer-nvim` does it)
     if ! cd $pkg_git_dir; then
@@ -24,8 +28,8 @@ do
 
     current_git_hash=$(git log -n1 --format=format:"%H")
     old_git_hash=""
-    if [ -f "$pkg_git_dir/hash_installed" ]; then
-        old_git_hash=$(cat "$pkg_git_dir/hash_installed")
+    if [ -f "$pkg_git_dir/$hash_file_name" ]; then
+        old_git_hash=$(cat "$pkg_git_dir/$hash_file_name")
     fi
 
     if [ "$old_git_hash" != "$current_git_hash" ]; then
@@ -35,7 +39,7 @@ do
             continue
         fi
 
-        git log -n1 --format=format:"%H" > hash_installed
+        git log -n1 --format=format:"%H" > $hash_file_name
     else
         echo "/!\\ Package \"$pkg_name\" is already at the latest version /!\\"
     fi
