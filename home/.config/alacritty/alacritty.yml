@@ -1,6 +1,7 @@
 font:
   normal:
-    family: FiraCode Nerd Font Mono
+    family: CodeNewRoman Nerd Font Mono
+    #family: FiraCode Nerd Font Mono
     #family: SpaceMono Nerd Font Mono
 
   size: 11.0

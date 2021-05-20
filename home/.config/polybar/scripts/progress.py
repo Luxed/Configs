@@ -3,6 +3,7 @@
 progress_size = 10
 progress_chars = ['▏', '▎', '▍', '▌', '▋', '▊', '▉', '█']
 
+
 def get_progress_bar(current):
     """Returns a formatted progress bar
 

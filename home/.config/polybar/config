@@ -35,7 +35,7 @@ cursor-scroll = ns-resize
 inherit = section/global_bar
 modules-left = i3 playerctl
 modules-center = date
-modules-right = filesystem mem-custom cpu
+modules-right = filesystem memory cpu
 
 tray-position = right
 tray-padding = 2
