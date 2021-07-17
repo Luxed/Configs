@@ -37,17 +37,17 @@ if [ $1 == "alpine" ]; then
     rc-update add samba boot
     #service samba start
 
-    su $username git clone https://github.com/Luxed/nvim-config.git ~/.local/nvim
+    su $username -c "git clone https://github.com/Luxed/nvim-config.git ~/.local/nvim"
 
-    su $username git clone https://github.com/neovim/neovim.git ~/git/neovim
+    su $username -c "git clone https://github.com/neovim/neovim.git ~/git/neovim"
     # Install neovim dependencies
     apk add build-base cmake automake autoconf libtool pkgconf coreutils curl unzip gettext-tiny-dev
     cd /home/cbrunel/git/neovim
-    su $username make -j$(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo
+    su $username -c "make -j$(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo"
     make install
     cd -
 
-    su $username git clone https://github.com/Luxed/Configs.git ~/git/Configs
+    su $username -c "git clone https://github.com/Luxed/Configs.git ~/git/Configs"
     cp /home/cbrunel/git/Configs/files/smb.conf /etc/samba/smb.conf
 
     # lazydocker (custom install)
