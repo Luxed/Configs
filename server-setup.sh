@@ -13,10 +13,12 @@ if [ $1 == "alpine" ]; then
     apk add doas
 
     # Enable wheel group in doas
+    chmod 600 /etc/doas.conf
     vim /etc/doas.conf
+    chmod 400 /etc/doas.conf
 
     # Shell utilities & tools
-    apk add bash fish htop bpytop git bapt iproute2-ss curl
+    apk add bash fish htop bpytop git bat iproute2-ss curl
     
     # Server
     apk add samba-server docker docker-compose
