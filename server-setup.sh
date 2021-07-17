@@ -7,34 +7,19 @@ if [ $1 == "alpine" ]; then
     apk add vim
 
     # Enable community repos
-    # TODO: Do this automatically if possible. Need to find line and remove leading #
     vim /etc/apk/repositories
 
     # Administration
     apk add doas
 
     # Enable wheel group in doas
-    # TODO: Do this automatically, just like repositories
     vim /etc/doas.conf
 
     # Shell utilities & tools
-    apk add fish htop bpytop git bapt iproute2-ss curl
+    apk add bash fish htop bpytop git bapt iproute2-ss curl
     
     # Server
     apk add samba-server docker docker-compose
-
-    # edit samba file (make generic, simple, guest config)
-
-    # Install latest neovim version from edge repos. Only latest stable, so it might need to be changed for a manual build instead.
-    #apk add -U neovim --repository http://alpinelinux.mirror.iweb.com/edge/community
-    # better compile it from source because it updates (downgrades?!) otherwise
-
-    # clone some useful repos
-    git clone https://github.com/Luxed/Configs.git 
-    git clone https://github.com/Luxed/nvim-config.git ~/.local/nvim
-
-    # Install lazydocker, only available on testing repositories for now
-    apk add -U lazydocker --repository http://alpinelinux.mirror.iweb.com/edge/testing
 
     # Add admin user
     read -p 'Username: '  username
@@ -50,5 +35,29 @@ if [ $1 == "alpine" ]; then
     rc-update add samba boot
     #service samba start
 
-    # TODO: enable some form of auto update
+    su $username git clone https://github.com/Luxed/nvim-config.git ~/.local/nvim
+
+    su $username git clone https://github.com/neovim/neovim.git ~/git/neovim
+    # Install neovim dependencies
+    apk add build-base cmake automake autoconf libtool pkgconf coreutils curl unzip gettext-tiny-dev
+    cd /home/cbrunel/git/neovim
+    su $username make -j$(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo
+    make install
+    cd -
+
+    su $username git clone https://github.com/Luxed/Configs.git ~/git/Configs
+    cp /home/cbrunel/git/Configs/files/smb.conf /etc/samba/smb.conf
+
+    # lazydocker (custom install)
+    wget https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh
+    # script uses sudo by default, but I use doas instead
+    sed -i 's/sudo/doas/' ./install_update_linux.sh
+    chmod +x ./install_update_linux.sh
+    ./install_update_linux.sh
+    rm install_update_linux.sh
+
+    echo "List of things to do now that everything is mostly setup:"
+    echo "- Edit samba config"
+    echo "- Docker compose things"
+    echo "- Add /usr/local/bin to path (fish_add_path)"
 fi
