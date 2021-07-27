@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+BRANCHES=$(git branch --merged | grep -i -v -E "master|develop|release|\*")
+
+if [ "$BRANCHES" == "" ]; then
+    echo "Nothing to clean."
+    exit 0
+fi
+
+echo "The following branches will be removed:"
+echo $BRANCHES
+
+while true; do
+    read -p "Are you sure you want to continue? [Y/n]:" answer
+
+    case $answer in
+        [Yy]* ) echo $BRANCHES | xargs git branch -d;exit 0;;
+        [Nn]* ) exit 0;;
+        * ) echo "Please answer Y or N.";;
+    esac
+done

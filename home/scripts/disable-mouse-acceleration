@@ -6,3 +6,13 @@ id=$(xinput list | grep pointer | grep Glorious | cut -d= -f 2 | cut -f 1)
 
 xinput set-prop $id 'libinput Accel Profile Enabled' 0, 1
 xinput list-props $id | grep 'Accel Profile Enabled'
+
+# To set globally, put this in `/etc/X11/xorg.conf.d/20-mouse-accel.conf`:
+#
+# Section "InputClass"
+#    Identifier "Glorious Model O"
+#    Driver "libinput"
+#    MatchIsPointer "Yes"
+#    Option "AccelProfile" "flat"
+# EndSection
+
