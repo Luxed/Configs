@@ -13,3 +13,7 @@ end
 function attach
     screen -r (basename (pwd))
 end
+
+function ssh
+    env TERM=xterm-256color ssh $argv
+end
