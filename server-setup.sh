@@ -19,7 +19,7 @@ if [ $1 == "alpine" ]; then
 
     # Shell utilities & tools
     apk add bash fish htop bpytop git bat iproute2-ss curl
-    
+ 
     # Server
     apk add samba-server docker docker-compose
 
