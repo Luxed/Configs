@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Suspend dunst while screen is locked
+
+pkill -u "$USER" -USR1 dunst
+
+i3lock -n -i $HOME/Pictures/space_planets_nebula_151671_3840x2160.png
+
+pkill -u "$USER" -USR2 dunst

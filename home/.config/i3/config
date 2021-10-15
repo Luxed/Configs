@@ -63,7 +63,7 @@ bindcode $mod+59 move workspace to output left
 bindcode $mod+Shift+60 move workspace to output down
 bindcode $mod+Shift+59 move workspace to output up
 
-bindsym $mod+Shift+x exec i3lock -i ~/images/bsod.png
+bindsym $mod+Shift+x exec $HOME/.config/i3/scripts/lock
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+w exec rofi -show window
 
