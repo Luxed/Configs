@@ -54,12 +54,13 @@ elif status == "Stopped":
 volume = playerctl("volume")
 if volume != "":
     vol = math.ceil(float(volume) * 100)
-    vol_icon = ""
-    if vol > 25:
-        vol_icon = ""
-    elif vol > 75:
-        vol_icon = ""
-    elements_to_print.append("{} {}%".format(vol_icon, vol))
+    if vol != 0:
+        vol_icon = ""
+        if vol > 25:
+            vol_icon = ""
+        elif vol > 75:
+            vol_icon = ""
+        elements_to_print.append("{} {}%".format(vol_icon, vol))
 
 
 print(" ".join(elements_to_print))
