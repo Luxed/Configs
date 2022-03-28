@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Where "datapool" is the name of the pool and "sda sdb sdc" is the drives to use (they will be converted to their "by-id" once restarted)
+# "raiz" is comparable to a "Raid 5" setup with one drive redundancy.
+zpool create datapool raidz sda sdb sdc
+
+# Create a "file system" for the datapool
+zfs create datapool/data
+
+# Set mountpoint to legacy so nixos is capable of mounting them
+zfs set mountpoint=legacy datapool
+zfs set mountpoint=legacy datapool/data
+
+# Mount our zfs filesystem where we want
+mount -t zfs datapool/data /mnt/zfs
+
+# Recreate the /etc/nixos/hardware-configuration.nix file
+nixos-generate-config
+# Switch to our new configuration with properly mounted disks
+nixos-rebuild switch
+
+# Rebooting is not required, but recommended to make sure everything works properly
+reboot
