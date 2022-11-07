@@ -14,13 +14,14 @@ selection:
 
 window:
   dynamic_title: true
+  opacity: 0.85
 
 cursor:
   unfocused_hollow: true
 
 live_config_reload: true
 
-background_opacity: 0.85
+#background_opacity: 0.85
 
 # Ayu Mirage color scheme (or at least something that is close)
 colors:
