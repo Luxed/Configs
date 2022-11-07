@@ -23,6 +23,9 @@
         #efiSysMountPoint = "/boot/efi";
       };
     };
+    # Disable hibernation and set zfs arc (cache) to 2GB
+    kernelParams = [ "nohibernate" "zfs.zfs_arc_max=2147483648" ];
+    supportedFilesystems = [ "zfs" ];
   };
 
   nixpkgs.config = {
@@ -41,6 +44,7 @@
 
   networking = {
     hostName = "vm-nixos-server-testing";
+    hostId = "40710698";
     # Set DNS to Cloudflare by default
     nameservers = [
       "1.1.1.1"
@@ -86,13 +90,15 @@
 
   environment.systemPackages = with pkgs; [
     gcc
-    vim
     neovim
     wget
     curl
     docker-compose
     git
-    lsd
+    exa
+    htop
+    btop
+    lm_sensors
   ];
 
   services = {
@@ -132,6 +138,16 @@
           "force user" = "share";
           "force group" = "share";
         };
+        publiczfs = {
+          path = "/mnt/zfs/Public ZFS/";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "share";
+          "force group" = "share";
+        };
         private = {
           path = "/mnt/Shares/Private";
           browseable = "yes";
@@ -144,6 +160,10 @@
         };
       };
     };
+    udev.extraRules = ''
+      ACTION=="add|change", KERNEL="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}="zfs_member", ATTR{../queue/scheduler}="none"
+    ''; # zfs already has its own scheduler.
+    zfs.autoScrub.enable = true;
   };
 
   virtualisation.docker.enable = true;
