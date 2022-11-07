@@ -159,14 +159,15 @@ bindsym $mod+Shift+s exec maim -so --format=png /dev/stdout | xclip -selection c
 
 # exec --no-startup-id libinput-gestures-setup start
 
-exec --no-startup-id systemctl --user start dunst
+#exec --no-startup-id systemctl --user start dunst
+#exec --no-startup-id dunst
 exec --no-startup-id $HOME/.screenlayout/main.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id picom --experimental-backends
 
 # Backgrounds
 exec --no-startup-id hsetroot -solid "#000000"
-# exec_always --no-startup-id nitrogen --restore
-exec --no-startup-id ~/scripts/random-wallpaper
+exec_always --no-startup-id nitrogen --restore
+#exec --no-startup-id ~/scripts/random-wallpaper
 
 # vim: filetype=i3config foldmethod=marker
