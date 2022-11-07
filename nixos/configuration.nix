@@ -10,18 +10,19 @@
       ./hardware-configuration.nix
     ];
 
+  swapDevices = [ { device = "/.swapfile"; } ];
+
   boot = {
     loader = {
-      # TODO: Configuration needs to be done for EFI.
-      # Using systemd-boot might be interesting too.
-      grub = {
-        enable = true;
-        version = 2;
-        device = "/dev/sda"; # or "nodev" for efi
-        #efiSupport = true;
-        #efiInstallAsRemovable = true;
-        #efiSysMountPoint = "/boot/efi";
-      };
+      #grub = {
+      #  enable = false;
+      #  version = 2;
+      #  device = "nodev";
+      #  efiSupport = true;
+      #  #efiInstallAsRemovable = true;
+      #  efiSysMountPoint = "/boot";
+      #};
+      systemd-boot.enable = true;
     };
     # Disable hibernation and set zfs arc (cache) to 2GB
     kernelParams = [ "nohibernate" "zfs.zfs_arc_max=2147483648" ];
@@ -43,10 +44,11 @@
   };
 
   networking = {
-    hostName = "vm-nixos-server-testing";
+    hostName = "nixos-nas";
     hostId = "40710698";
     # Set DNS to Cloudflare by default
     nameservers = [
+      "192.168.0.1"
       "1.1.1.1"
       "1.0.0.1"
     ];
@@ -75,7 +77,7 @@
     users = {
       cbrunel = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "docker" ];
+        extraGroups = [ "wheel" "docker" "share" ];
         shell = pkgs.fish;
       };
       share = {
@@ -99,6 +101,18 @@
     htop
     btop
     lm_sensors
+    ncdu
+    ripgrep
+    lazydocker
+    btop
+    nodejs
+    bat
+    screen
+    unzip
+    ethtool
+    renameutils
+    smartmontools
+    p7zip
   ];
 
   services = {
@@ -129,17 +143,7 @@
       '';
       shares = {
         public = {
-          path = "/mnt/Shares/Public";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "share";
-          "force group" = "share";
-        };
-        publiczfs = {
-          path = "/mnt/zfs/Public ZFS/";
+          path = "/mnt/zfs/datapool/Public";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "yes";
@@ -149,7 +153,7 @@
           "force group" = "share";
         };
         private = {
-          path = "/mnt/Shares/Private";
+          path = "/mnt/zfs/datapool/Private";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -172,10 +176,9 @@
     stateVersion = "21.11";
     autoUpgrade = {
       enable = true;
-      # TODO: Set time at which it would update to make sure reboot doesn't occur at a bad time
       allowReboot = false;
+      dates = "04:00";
     };
   };
 }
 
-# vim: expandtab ts=2 sw=2:
