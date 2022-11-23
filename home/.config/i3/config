@@ -163,7 +163,7 @@ bindsym $mod+Shift+s exec maim -so --format=png /dev/stdout | xclip -selection c
 #exec --no-startup-id dunst
 exec --no-startup-id $HOME/.screenlayout/main.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id picom --experimental-backends
+exec_always --no-startup-id picom
 
 # Backgrounds
 exec --no-startup-id hsetroot -solid "#000000"
