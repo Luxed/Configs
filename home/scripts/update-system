@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+sudo zypper ref
+sudo zypper dup
+flatpak update
+
+rustup self update
+rustup update
+cargo install-update --all
+
+# Update global python packages
+# Update global npm packages
+# Update global dotnet packages
+
+cd ~/git/neovim
+git pull
+make distclean
+make CMAKE_BUILD_TYPE=RelWithDebInfo -j $(nproc)
+make CMAKE_INSTALL_PREFIX=$HOME/.local/opt/neovim install

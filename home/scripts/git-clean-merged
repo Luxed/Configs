@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BRANCHES=$(git branch --merged | grep -i -v -E "master|develop|release|\*")
+BRANCHES=$(git branch --merged | grep -ivE "(^  master)|(^  develop)|(^  release)|\*")
 
 if [ "$BRANCHES" == "" ]; then
     echo "Nothing to clean."

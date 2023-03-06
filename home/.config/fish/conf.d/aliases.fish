@@ -1,9 +1,9 @@
 function ls
-    command lsd --group-dirs first $argv
+    command exa --group-directories-first $argv
 end
 
 function l
-    ls -lA $argv
+    ls -lagh $argv
 end
 
 function sess
