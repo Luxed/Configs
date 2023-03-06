@@ -139,4 +139,4 @@ configuration {
 }
 
 /*@theme "/usr/share/rofi/themes/sidebar.rasi"*/
-@theme "/home/cbrunel/.config/rofi/nord.rasi"
+@theme "~/.config/rofi/nord.rasi"

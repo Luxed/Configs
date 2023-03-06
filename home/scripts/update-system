@@ -18,4 +18,4 @@ cd ~/git/neovim
 git pull
 make distclean
 make CMAKE_BUILD_TYPE=RelWithDebInfo -j $(nproc)
-make CMAKE_INSTALL_PREFIX=$HOME/.local/opt/neovim install
+make CMAKE_INSTALL_PREFIX=~/.local/opt/neovim install
