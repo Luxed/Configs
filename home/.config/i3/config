@@ -57,9 +57,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Dual screen support keybinds (< and > keys)
-bindcode $mod+60 move workspace to output right
-bindcode $mod+59 move workspace to output left
+# Dual screen support keybinds (< and > keyss)
+bindcode $mod+60 move workspace to output up
+bindcode $mod+59 move workspace to output down
 bindcode $mod+Shift+60 move workspace to output down
 bindcode $mod+Shift+59 move workspace to output up
 
