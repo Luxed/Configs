@@ -1,0 +1,238 @@
+packadd ayu-vim
+" Vanilla: {{{
+
+if &compatible
+    set nocompatible
+endif
+
+" Where do all these keymaps starting with <esc> come from???
+function s:RemoveEscMaps(mode)
+    let l:map = mapcheck('<esc>', a:mode)
+    while !empty(l:map)
+        let l:cmd = a:mode .. 'unmap '
+        execute l:cmd l:map
+        let l:map = mapcheck('<esc>', a:mode)
+    endwhile
+endfunction
+
+call s:RemoveEscMaps('')
+call s:RemoveEscMaps('n')
+call s:RemoveEscMaps('v')
+call s:RemoveEscMaps('o')
+call s:RemoveEscMaps('i')
+call s:RemoveEscMaps('c')
+call s:RemoveEscMaps('s')
+call s:RemoveEscMaps('x')
+call s:RemoveEscMaps('l')
+call s:RemoveEscMaps('t')
+
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set autoindent
+
+set wrap
+set linebreak
+set breakindent
+set breakindentopt=shift:2
+set number
+set cursorline
+set signcolumn=yes
+let &showbreak = '> '
+set wildmenu
+set showcmd
+set lazyredraw
+set showmatch
+set incsearch
+set nohlsearch
+set ruler
+set laststatus=2
+set confirm
+set novisualbell
+set mouse=a
+set cmdheight=2
+"set inccommand=nosplit
+set splitbelow
+set splitright
+set autowrite
+set updatetime=300
+set termguicolors
+let &grepprg = 'rg --no-heading --vimgrep --smart-case'
+set hidden
+"let &completeopt = 'menu,menuone,noselect'
+set noshowmode
+set re=0
+
+let g:mapleader = ','
+nnoremap ; :
+nnoremap <leader>l <cmd>bnext<CR>
+nnoremap <leader>h <cmd>bprevious<CR>
+nnoremap <leader>bq <cmd>b#<BAR>bd #<CR>
+"nnoremap <leader>br <cmd>%s/<C-r><C-w>//g<left><left>
+nnoremap <leader>th <cmd>set hlsearch!<CR>
+nnoremap <leader>tw <cmd>setlocal wrap!<CR>
+nnoremap <leader>ts <cmd>setlocal spell!<CR>
+nnoremap <leader>n <cmd>nohl<CR>
+
+nmap <space> za
+nmap <C-space> zA
+
+inoremap <C-backspace> <esc>caw
+
+" Set proper terminal cursors when changing modes
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+
+" Remove delay when pressing escape
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
+
+" }}}
+
+" Plugins: {{{
+
+function! PackInit() abort
+    packadd minpac
+
+    call minpac#init()
+
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+    "call minpac#add('Luxed/ayu-vim', {'branch': 'master'})
+    call minpac#add('itchyny/lightline.vim')
+
+    "call minpac#add('vim-airline/vim-airline')
+    "call minpac#add('vim-airline/vim-airline-themes')
+
+    call minpac#add('mhinz/vim-startify')
+    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+    call minpac#add('tpope/vim-fugitive')
+    call minpac#add('preservim/nerdcommenter')
+
+    call minpac#add('junegunn/fzf')
+    call minpac#add('junegunn/fzf.vim')
+    call minpac#add('ctrlpvim/ctrlp.vim')
+
+    call minpac#add('lambdalisue/fern.vim')
+    call minpac#add('lambdalisue/nerdfont.vim')
+    call minpac#add('lambdalisue/fern-renderer-nerdfont.vim')
+    call minpac#add('lambdalisue/fern-git-status.vim')
+
+    call minpac#add('rhysd/clever-f.vim')
+
+    call minpac#add('jiangmiao/auto-pairs') " Auto close things ('(', '{', '[', etc.)
+    call minpac#add('alvan/vim-closetag') " Auto close html tags
+
+    call minpac#add('tpope/vim-surround') " Surround (visually select and surround with what you want)
+    call minpac#add('wellle/targets.vim') " adds text-objects to work with (like 'ci,' for example))
+
+    "call minpac#add('machakann/vim-highlightedyank')
+
+    call minpac#add('mhinz/vim-signify')
+
+    call minpac#add('HerringtonDarkholme/yats.vim')
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+" }}}
+
+" Airline: {{{
+
+let g:airline_powerline_fonts = 1
+" show buffers at the top of the screen
+let g:airline#extensions#tabline#enabled = 1
+" only show the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+
+" }}}
+
+" Lightline: {{{
+
+let g:lightline = {
+      \ 'colorscheme': 'ayu',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" }}}
+
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
+nnoremap <silent> <leader>gs <cmd>Git<CR>
+
+nnoremap <silent> <leader>ff <cmd>call fzf#run(fzf#wrap({'source': 'rg --files'}))<CR>
+
+" Fern: {{{
+
+let g:fern#renderer = 'nerdfont'
+let g:fern#default_hidden = 1
+let g:fern#default_exclude = '.git'
+
+nnoremap <silent> <C-f>f <cmd>Fern .<CR>
+nnoremap <silent> <C-f><C-f> <cmd>Fern .<CR>
+nnoremap <silent> <C-f>v <cmd>Fern . -opener=vsplit<CR>
+nnoremap <silent> <C-f><C-v> <cmd>Fern . -opener=vsplit<CR>
+nnoremap <silent> <C-f>h <cmd>Fern . -opener=split<CR>
+nnoremap <silent> <C-f><C-h> <cmd>Fern . -opener=split<CR>
+
+" }}}
+
+" Startify {{{
+
+let g:startify_change_to_dir = 0
+"let g:startify_change_to_vcs_root = 1
+
+let g:ascii = [
+            \ '        _           ',
+            \ '       (_)          ',
+            \ ' __   ___ _ __ ___  ',
+            \ ' \ \ / / | ''_ ` _ \ ',
+            \ '  \ V /| | | | | | |',
+            \ '   \_/ |_|_| |_| |_|',
+            \ '                    '
+            \ ]
+
+packadd vim-startify
+let g:startify_custom_header = g:ascii + startify#fortune#boxed()
+
+let g:startify_lists = [
+            \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+            \ { 'type': 'files',     'header': ['   MRU']            },
+            \ { 'type': 'sessions',  'header': ['   Sessions']       },
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ { 'type': 'commands',  'header': ['   Commands']       },
+            \ ]
+
+" }}}
+
+nnoremap <silent> zS <cmd>call colors#ShowHighlightsUnderCursor()<CR>
+
+" Colors: {{{
+
+set background=dark
+let g:ayucolor = 'mirage'
+let g:ayu_extended_palette = 1
+let g:ayu_italic_comment = 1
+colorscheme ayu
+
+
+" NOTE: In Vim, for some reason, the background goes transparent in some
+" places when it shouldn't. Instead of disabling transparency in my terminal,
+" I'll just make Vim transparent
+"hi! Normal guibg=NONE
+
+filetype plugin on
+
+" }}}
