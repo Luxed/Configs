@@ -131,39 +131,57 @@ elif [ $1 == "fedora" ]; then
 
     ./create_symlinks.sh
 elif [ $1 == "leap" ]; then
+    ./create_symlinks.sh
+
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 
     sudo zypper addrepo https://packages.microsoft.com/yumrepos/vscode vscode
     wget https://packages.microsoft.com/config/opensuse/15/prod.repo
     sudo mv prod.repo /etc/zypp/repos.d/microsoft-prod.repo
     sudo chown root:root /etc/zypp/repos.d/microsoft-prod.repo
-    sudo zypper addrepo https://download.opensuse.org/repositories/X11:Utilities/openSUSE_Leap_15.2/X11:Utilities.repo
-    sudo zypper addrepo https://download.opensuse.org/repositories/X11:windowmanagers/openSUSE_Leap_15.2/X11:windowmanagers.repo
-    sudo zypper addrepo https://download.opensuse.org/repositories/multimedia:apps/openSUSE_Leap_15.2/multimedia:apps.repo
+    sudo zypper addrepo https://download.opensuse.org/repositories/X11:Utilities/15.4/X11:Utilities.repo
+    # sudo zypper addrepo https://download.opensuse.org/repositories/X11:windowmanagers/openSUSE_Leap_15.2/X11:windowmanagers.repo
+    # sudo zypper addrepo https://download.opensuse.org/repositories/multimedia:apps/openSUSE_Leap_15.2/multimedia:apps.repo
     sudo zypper refresh
 
+    # Install codecs
+    sudo zypper install opi
+    opi codecs
+
     sudo zypper install -t pattern devel_basis devel_C_C++
-    sudo zypper install arandr i3 rofi dunst playerctl fish bat flatpak htop alacritty mpd ncmpcpp virt-manager remmina pavucontrol fzf python3 python3-pip python3-devel nodejs12 nodejs12-devel npm ripgrep code mpDris2 picom feh thunderbird hsetroot cmake polybar arc-icon-theme gtk3-metatheme-arc lxappearance mpclient libvirt
+    sudo zypper install arandr i3 rofi dunst playerctl fish bat flatpak htop btop virt-manager libvirt remmina pavucontrol fzf python3 python3-pip nodejs18 npm ripgrep code picom feh thunderbird hsetroot cmake polybar libvirt kitty dotnet-sdk-6.0 dotnet-sdk-7.0 exa firefox p7zip-full wget
 
+    # Other package managers
     sudo pip3 install neovim pynvim thefuck
-    sudo npm install -g neovim
+    sudo npm install -g neovim yarn
+    dotnet tool install -g powershell
 
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    source $HOME/.cargo/env
-    cargo install lsd
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install discord slack
+    flatpak install discord slack dbeaver postman insomnia bitwarden onlyoffice remmina
 
     git clone https://github.com/luxed/nvim-config.git ~/.config/nvim
 
-    git clone https://github.com/adi1090x/dynamic-wallpaper.git ~/git/dynamic-wallpaper
-    cd ~/git/dynamic-wallpaper
-    chmod +x install.sh
-    ./install.sh
-    cd ~/git/configs
+    # Install nerd font:
+    CUR_DIR=$(pwd)
+    DEST_DIR=~/.local/share/fonts/NerdFonts/
+    FONT_NAME=CodeNewRoman
 
-    ./create_symlinks.sh
+    mkdir -p $DEST_DIR
+    cd $DEST_DIR
+
+    wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$FONT_NAME.zip
+    7z x ./$FONT_NAME.zip
+    rm $FONT_NAME.zip
+
+    fc-cache
+
+    cd $CUR_DIR
+
+    systemctl --user start dunst
+    systemctl --user enable dunst
 
     sudo usermod --shell /usr/bin/fish $USER
     curl -L https://get.oh-my.fish | fish
+
+    # Install "bobthefish" theme
 fi
