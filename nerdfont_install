@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+FONT_NAME=$1
+
+if [ "$FONT_NAME" == "" ]; then
+    echo "A font name is required"
+    exit 1
+fi
+
+CUR_DIR=$(pwd)
+
+DEST_DIR=~/.local/share/fonts/NerdFonts/
+mkdir -p $DEST_DIR
+cd $DEST_DIR
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$FONT_NAME.zip
+7z -y x ./$FONT_NAME.zip
+rm $FONT_NAME.zip
+
+fc-cache
+
+cd $CUR_DIR
+
+exit 0

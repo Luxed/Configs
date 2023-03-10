@@ -19,10 +19,9 @@ bottom = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = FiraCode Nerd Font:style=Medium:size=10;2
-;font-0 = CodeNewRoman Nerd Font Mono:style=Medium:size=10;2
-;font-0 = SpaceMono Nerd Font Mono:size=10;2
-;font-0 = DaddyTimeMono Nerd Font Mono:size=10;2
+font-0 = CodeNewRoman Nerd Font:size=12;2
+; font-1 = SpaceMono Nerd Font:size=11;2
+font-1 = FiraCode Nerd Font:style=Medium:size=11;1
 
 module-margin = 1
 

@@ -1,5 +1,5 @@
 [global]
-font = DejaVu Sans 12
+font = CodeNewRoman Nerd Font
 markup = yes
 plain_text = no
 format = "<b>%s</b>\n%b"

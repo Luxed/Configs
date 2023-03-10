@@ -1,4 +1,4 @@
-font pango:Fira Code, Font Awesome 5 Free 10
+font pango:CodeNewRoman Nerd Font
 
 set $mod Mod4
 floating_modifier $mod
@@ -154,7 +154,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-#bindsym $mod+Shift+s exec gnome-screenshot --interactive --area
+# bindsym $mod+Shift+s exec gnome-screenshot --interactive --area
 bindsym $mod+Shift+s exec maim -so --format=png /dev/stdout | xclip -selection clipboard -t image/png -i
 
 # exec --no-startup-id libinput-gestures-setup start

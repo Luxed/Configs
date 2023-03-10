@@ -139,8 +139,10 @@ elif [ $1 == "leap" ]; then
     wget https://packages.microsoft.com/config/opensuse/15/prod.repo
     sudo mv prod.repo /etc/zypp/repos.d/microsoft-prod.repo
     sudo chown root:root /etc/zypp/repos.d/microsoft-prod.repo
+    # Install repo containing Polybar
     sudo zypper addrepo https://download.opensuse.org/repositories/X11:Utilities/15.4/X11:Utilities.repo
-    # sudo zypper addrepo https://download.opensuse.org/repositories/X11:windowmanagers/openSUSE_Leap_15.2/X11:windowmanagers.repo
+    # Install repo containing up to date version of dunst
+    sudo zypper addrepo https://download.opensuse.org/repositories/X11:windowmanagers/15.4/X11:windowmanagers.repo
     # sudo zypper addrepo https://download.opensuse.org/repositories/multimedia:apps/openSUSE_Leap_15.2/multimedia:apps.repo
     sudo zypper refresh
 
@@ -149,7 +151,12 @@ elif [ $1 == "leap" ]; then
     opi codecs
 
     sudo zypper install -t pattern devel_basis devel_C_C++
-    sudo zypper install arandr i3 rofi dunst playerctl fish bat flatpak htop btop virt-manager libvirt remmina pavucontrol fzf python3 python3-pip nodejs18 npm ripgrep code picom feh thunderbird hsetroot cmake polybar libvirt kitty dotnet-sdk-6.0 dotnet-sdk-7.0 exa firefox p7zip-full wget
+    sudo zypper install \
+        arandr i3 rofi dunst playerctl fish bat flatpak htop btop virt-manager \
+        libvirt remmina pavucontrol fzf python3 python3-pip nodejs18 npm ripgrep \
+        code picom feh thunderbird hsetroot cmake polybar libvirt kitty \
+        dotnet-sdk-6.0 dotnet-sdk-7.0 exa firefox p7zip-full wget maim \
+        noto-coloremoji-fonts xinput lxappearance arc-icon-theme gtk2-metatheme-arc gtk3-metatheme-arc
 
     # Other package managers
     sudo pip3 install neovim pynvim thefuck
@@ -161,21 +168,10 @@ elif [ $1 == "leap" ]; then
 
     git clone https://github.com/luxed/nvim-config.git ~/.config/nvim
 
-    # Install nerd font:
-    CUR_DIR=$(pwd)
-    DEST_DIR=~/.local/share/fonts/NerdFonts/
-    FONT_NAME=CodeNewRoman
-
-    mkdir -p $DEST_DIR
-    cd $DEST_DIR
-
-    wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$FONT_NAME.zip
-    7z x ./$FONT_NAME.zip
-    rm $FONT_NAME.zip
-
-    fc-cache
-
-    cd $CUR_DIR
+    # Install nerd fonts:
+    ./nerdfont_install CodeNewRoman
+    ./nerdfont_install FiraCode
+    ./nerdfont_install FiraMono
 
     systemctl --user start dunst
     systemctl --user enable dunst
