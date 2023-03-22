@@ -1,9 +1,12 @@
 #!/bin/bash
 
+lock_icon=~/Downloads/lock-icon.png
+tmpbg=/tmp/screen.png
+
+maim -o $tmpbg --format=png
+convert $tmpbg -filter Gaussian -resize 20% -define "filter:sigma=1.5" -sample 500% $tmpbg
+
 # Suspend dunst while screen is locked
-
 pkill -u "$USER" -USR1 dunst
-
-i3lock -n -i $HOME/Pictures/space_planets_nebula_151671_3840x2160.png
-
+i3lock -n -i $tmpbg
 pkill -u "$USER" -USR2 dunst
