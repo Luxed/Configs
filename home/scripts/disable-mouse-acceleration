@@ -2,11 +2,6 @@
 
 # Set "flat" acceleration (disable acceleration)
 
-id=$(xinput list | grep pointer | grep Glorious | cut -d= -f 2 | cut -f 1)
-
-xinput set-prop $id 'libinput Accel Profile Enabled' 0, 1
-xinput list-props $id | grep 'Accel Profile Enabled'
-
 # To set globally, put this in `/etc/X11/xorg.conf.d/20-mouse-accel.conf`:
 #
 # Section "InputClass"
@@ -16,3 +11,17 @@ xinput list-props $id | grep 'Accel Profile Enabled'
 #    Option "AccelProfile" "flat"
 # EndSection
 
+function disable_acceleration() {
+    id=$(xinput list | grep pointer | grep "$1" | cut -d= -f 2 | cut -f 1)
+
+    if [ "$id" != "" ]; then
+        xinput set-prop $id 'libinput Accel Profile Enabled' 0, 1
+        # xinput list-props $id | grep 'Accel Profile Enabled'
+        echo "Disabled acceleration for pointer \"$1\""
+    else
+        echo "Pointer with id \"$1\" was not found"
+    fi
+}
+
+disable_acceleration "ELECOM"
+disable_acceleration "Glorious"

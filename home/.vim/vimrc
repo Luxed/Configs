@@ -1,4 +1,3 @@
-packadd ayu-vim
 " Vanilla: {{{
 
 if &compatible
@@ -100,9 +99,11 @@ function! PackInit() abort
     call minpac#init()
 
     call minpac#add('k-takata/minpac', {'type': 'opt'})
-    "call minpac#add('Luxed/ayu-vim', {'branch': 'master'})
-    call minpac#add('itchyny/lightline.vim')
 
+    call minpac#add('Luxed/ayu-vim', {'branch': 'master'})
+    call minpac#add('morhetz/gruvbox')
+
+    call minpac#add('itchyny/lightline.vim')
     "call minpac#add('vim-airline/vim-airline')
     "call minpac#add('vim-airline/vim-airline-themes')
 
@@ -189,7 +190,7 @@ nnoremap <silent> <C-f><C-h> <cmd>Fern . -opener=split<CR>
 
 " }}}
 
-" Startify {{{
+" Startify: {{{
 
 let g:startify_change_to_dir = 0
 "let g:startify_change_to_vcs_root = 1
@@ -225,6 +226,7 @@ set background=dark
 let g:ayucolor = 'mirage'
 let g:ayu_extended_palette = 1
 let g:ayu_italic_comment = 1
+packadd ayu-vim
 colorscheme ayu
 
 

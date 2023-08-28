@@ -6,5 +6,6 @@ set -e
 cd ~/git/neovim
 #git pull
 make distclean
-make -j$(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
+make -j $(nproc) CMAKE_BUILD_TYPE=RelWithDebInfo
+# sudo make install
+make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=~/.local/opt/neovim install

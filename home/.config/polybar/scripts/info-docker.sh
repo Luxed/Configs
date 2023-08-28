@@ -14,5 +14,5 @@ else
         output="$output $(docker ps -qf status="$stat" | wc -l) |"
     done
 
-    echo "|$output"
+    echo "%{F#5294e2}Docker%{F-}: |$output"
 fi
